@@ -1,0 +1,20 @@
+.list-group-item-action.active {
+    color: rgba(var(--bs-emphasis-color-rgb), .85);
+    background-color: rgba(var(--bs-secondary-bg-rgb), 1);
+}
+
+[data-bs-toggle="collapse"] {
+    display: inline-flex;
+    align-items: center;
+}
+
+[data-bs-toggle="collapse"]>i {
+    display: inline-block;
+    margin-left: auto;
+    transition: transform .35s ease;
+    transform-origin: .5em 50%;
+}
+
+[data-bs-toggle="collapse"][aria-expanded="false"]>i {
+    transform: rotate(-180deg);
+}

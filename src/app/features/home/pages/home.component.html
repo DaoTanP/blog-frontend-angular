@@ -1,0 +1,88 @@
+<ng-container appNoWrapper="Parent">
+    <main threeColumnLayoutMain>
+        <div class="d-flex flex-column">
+            <div class="my-2 mx-1 d-flex">
+                <div class="dropdown dropdown-center">
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle rounded-pill" type="button"
+                        id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        data-bs-offset="0,5">
+                        Sort by: Hot
+                    </button>
+                    <div class="dropdown-menu w-100 p-0 overflow-hidden overflow-y-auto thin-scrollbars"
+                        style="min-width: auto; max-height: 50dvh;" aria-labelledby="sortDropdown">
+                        <a class="dropdown-item py-2" href="#">Hot</a>
+                        <a class="dropdown-item py-2" href="#">Best</a>
+                        <a class="dropdown-item py-2" href="#">New</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="border-top"></div>
+            <app-post-card></app-post-card>
+            <div class="border-top"></div>
+            <app-post-card></app-post-card>
+            <div class="border-top"></div>
+            <app-post-card></app-post-card>
+        </div>
+    </main>
+    <aside threeColumnLayoutRightAside>
+        <div class="p-3 rounded d-none d-md-block">
+            <h6 class="pb-3 mb-3 text-uppercase text-secondary-emphasis">Top bloggers</h6>
+            <div class="list-group list-group-flush">
+                <a routerLink="/user"
+                    class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#007bff"></rect>
+                    </svg>
+                    <div class="small lh-sm">
+                        <strong class="d-block text-gray-dark">&#64;username</strong>
+                        <span class="d-block lh-sm">12 posts</span>
+                        <span class="d-block lh-sm">120 comments</span>
+                    </div>
+                </a>
+                <a routerLink="/user"
+                    class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#e83e8c"></rect>
+                    </svg>
+                    <div class="small lh-sm">
+                        <strong class="d-block text-gray-dark">&#64;username</strong>
+                        <span class="d-block lh-sm">12 posts</span>
+                        <span class="d-block lh-sm">120 comments</span>
+                    </div>
+                </a>
+                <a routerLink="/user"
+                    class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#6f42c1"></rect>
+                    </svg>
+                    <div class="small lh-sm">
+                        <strong class="d-block text-gray-dark">&#64;username</strong>
+                        <span class="d-block lh-sm">12 posts</span>
+                        <span class="d-block lh-sm">120 comments</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="p-3 rounded d-none d-md-block">
+            <h6 class="pb-3 mb-3 text-uppercase text-secondary-emphasis">Bottom bloggers</h6>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat tempore impedit molestias ex
+            ab
+            qui
+            recusandae doloribus commodi quam reprehenderit ipsum, voluptates, libero quisquam, voluptatibus
+            iusto
+            ratione ducimus corrupti laboriosam nemo facere? Non cum doloremque quis quos blanditiis itaque
+            nostrum
+            veniam corporis qui nulla possimus architecto laudantium.
+        </div>
+    </aside>
+</ng-container>

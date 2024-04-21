@@ -1,0 +1,7 @@
+.card-text-preview * {
+    display: inline;
+}
+
+article.card:hover {
+    background-color: rgba(var(--bs-secondary-rgb), .1);
+}

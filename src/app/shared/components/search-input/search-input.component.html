@@ -1,0 +1,43 @@
+<form class="dropdown position-relative mx-auto shadow">
+    <ul
+        class="dropdown-menu w-100 p-0 overflow-x-hidden overflow-y-auto border-0 rounded-top-0  shadow styled-scrollbars">
+        <li>
+            <div style="line-height: 0.85;" class="border-bottom text-secondary">&nbsp;</div>
+        </li>
+        <li>
+            <div class="dropdown-header pb-2 pt-3">
+                <i class="fa-solid fa-arrow-trend-up me-2"></i>
+                <span class="h6 text-uppercase">Trending Today</span>
+            </div>
+        </li>
+        <li><a class="dropdown-item p-3" href="#">
+                <div class="row justify-content-between flex-nowrap">
+                    <div class="col">
+                        <h6 class="m-0">Special title treatment</h6>
+                        <p class="small mb-2">With supporting text below as a natural lead-in to additional content.</p>
+                        <p class="small mb-0">&#64;johndoe123</p>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <svg class="bd-placeholder-img flex-shrink-0 rounded d-block ms-auto" width="96px" height="72px"
+                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                            preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#007bff"></rect>
+                        </svg>
+                    </div>
+                </div>
+            </a></li>
+        <li><a class="dropdown-item p-3" href="#">Action two</a></li>
+        <li><a class="dropdown-item p-3" href="#">Action three</a></li>
+    </ul>
+    <div class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <div class="input-group rounded-pill bg-body-secondary px-1">
+            <button class="btn border-0" type="button" id="quick-search" routerLink="/search" tabindex="-1"
+                click="() => {console.log(searchInput.value)}">
+                <i class="bi bi-search"></i>
+            </button>
+            <input type="text" class="form-control bg-transparent border-0 ps-0" [ngModel] #searchInput
+                placeholder="Search Blog" aria-describedby="quick-search">
+        </div>
+    </div>
+</form>

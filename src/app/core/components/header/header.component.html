@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg sticky-top bg-transparent border-bottom"
+    [ngClass]="{'shadow bg-body-tertiary': isScrolled || (NavToggler.checked && !isScrolled)}" style="z-index: 9999;">
+    <div class="container-fluid d-flex">
+        <button class="navbar-toggler d-flex d-xl-none p-1 me-2 rounded-circle fw-bolder border-0"
+            (click)="NavToggler.checked = !NavToggler.checked" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+            aria-controls="bdNavbar">
+            <input type="checkbox" class="visually-hidden" #NavToggler>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a routerLink="/" class="d-block align-items-center text-decoration-none me-auto text-body">
+            <app-logo class="me-1" width="2em" height="2em"></app-logo>
+            <span class="fw-bolder h4 d-none d-lg-inline">Blog</span>
+        </a>
+        <!-- <div class="offcanvas-lg offcanvas-start flex-grow-1" tabindex="-1" id="navbar" data-bs-scroll="true">
+            <div class="offcanvas-header px-4 pb-0">
+                <h5 class="offcanvas-title">Blog</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                    data-bs-target="#navbar"></button>
+            </div>
+            <div class="offcanvas-body p-4 pt-0 p-lg-0">
+                <hr class="d-lg-none text-white-50"> -->
+        <!-- <ul class="navbar-nav flex-row flex-wrap">
+                    <li class="nav-item col-6 col-lg-auto">
+                        <a routerLink="/home" routerLinkActive="active text-primary"
+                            class=" nav-link py-2 px-0 px-lg-2">
+                            Trang chủ
+                        </a>
+                    </li>
+                </ul>
+
+                <hr class="d-lg-none"> -->
+
+        <div class="mx-0 mx-lg-5"></div>
+        <app-search-input class="flex-grow-1"></app-search-input>
+        <div class="mx-0 mx-lg-5"></div>
+
+        <button class="btn btn-primary rounded-pill mx-lg-3">Log In</button>
+
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+
+            <li class="nav-item col-lg-auto d-flex align-items-center">
+                <span *ngIf="switchThemeFunction != undefined">
+                    <input type="checkbox" class="btn-check" id="btn-check-theme" autocomplete="off"
+                        (click)="toggleTheme()">
+                    <label
+                        class="d-none d-lg-inline-block btn btn-outline-secondary border-light-subtle text-body bg-body-secondary rounded-circle p-2"
+                        for="btn-check-theme">
+                        <span *ngIf="isDark" class="d-flex">
+                            <!-- moon icon -->
+                            <svg style="width: 1.25em; height: 1.25em; aspect-ratio: 1/1;"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M12 21q-3.75 0-6.375-2.625T3 12q0-3.75 2.625-6.375T12 3q.35 0 .688.025t.662.075q-1.025.725-1.638 1.888T11.1 7.5q0 2.25 1.575 3.825T16.5 12.9q1.375 0 2.525-.613T20.9 10.65q.05.325.075.662T21 12q0 3.75-2.625 6.375T12 21Z" />
+                            </svg>
+                        </span>
+                        <span *ngIf="!isDark" class="d-flex">
+                            <!-- sun icon -->
+                            <svg style="width: 1.25em; height: 1.25em; aspect-ratio: 1/1;"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M11 4V1h2v3h-2Zm0 19v-3h2v3h-2Zm9-10v-2h3v2h-3ZM1 13v-2h3v2H1Zm17.7-6.3l-1.4-1.4l1.75-1.8l1.45 1.45l-1.8 1.75ZM4.95 20.5L3.5 19.05l1.8-1.75l1.4 1.4l-1.75 1.8Zm14.1 0l-1.75-1.8l1.4-1.4l1.8 1.75l-1.45 1.45ZM5.3 6.7L3.5 4.95L4.95 3.5L6.7 5.3L5.3 6.7ZM12 18q-2.5 0-4.25-1.75T6 12q0-2.5 1.75-4.25T12 6q2.5 0 4.25 1.75T18 12q0 2.5-1.75 4.25T12 18Z" />
+                            </svg>
+                        </span>
+                    </label>
+
+                    <label
+                        class="d-block d-lg-none btn btn-outline-secondary border-light-subtle text-body bg-body-secondary rounded-2 p-2"
+                        for="btn-check-theme">
+                        Giao diện:&nbsp;
+                        <span *ngIf="isDark">
+                            Tối
+                        </span>
+                        <span *ngIf="!isDark">
+                            Sáng
+                        </span>
+                    </label>
+                </span>
+            </li>
+        </ul>
+        <!-- </div>
+        </div> -->
+    </div>
+</nav>

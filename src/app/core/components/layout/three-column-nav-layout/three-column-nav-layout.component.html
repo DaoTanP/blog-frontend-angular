@@ -1,0 +1,18 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="row">
+        <app-side-nav class="col-2.5 visually-hidden-max-xl" style="max-width: 272px;"></app-side-nav>
+        <div class="col">
+            <div class="row">
+                <div class="col m-lg-0 m-0 mx-sm-5" #layoutMain>
+                    <ng-content select="[threeColumnLayoutMain]"></ng-content>
+                </div>
+                <div #layoutRightAside
+                    class="col-lg-4 col-xxl-3 d-none d-lg-block border-start overflow-y-auto overflow-x-hidden sticky-top z-1 user-select-none styled-scrollbars h-screen-without-header top-without-header">
+                    <ng-content select="[threeColumnLayoutRightAside]"></ng-content>
+                </div>
+            </div>
+            <router-outlet #routerOutlet></router-outlet>
+        </div>
+    </div>
+</div>
