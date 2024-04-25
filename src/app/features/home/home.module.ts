@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './pages/home.component';
-import { SharedModule } from '@/shared/shared.module';
+import { FeedComponent } from './pages/feed/feed.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { PostModule } from '@/features/post/post.module';
+import { PostCardComponent } from '@/shared/components/post-card/post-card.component';
 
 @NgModule({
-  declarations: [HomeComponent],
-  imports: [CommonModule, SharedModule, HomeRoutingModule, PostModule],
+  declarations: [FeedComponent],
+  imports: [CommonModule, HomeRoutingModule, PostCardComponent],
 })
 export class HomeModule {}

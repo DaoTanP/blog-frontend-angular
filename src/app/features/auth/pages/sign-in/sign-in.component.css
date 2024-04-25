@@ -1,0 +1,18 @@
+.social-media-btn {
+    --bs-border-opacity: .25;
+}
+.social-media-btn:hover {
+    --bs-border-opacity: 1;
+}
+
+@media (min-width: 576px) {
+    #form-container {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 992px) {
+    #form-container {
+        max-width: 416px;
+    }
+}

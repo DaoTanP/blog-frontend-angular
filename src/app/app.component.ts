@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from './core/services/data.service';
+import { VARIABLE_NAME } from './shared/constants/variable-name.constant';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,16 @@ import { DataService } from './core/services/data.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'BlogV1';
-
   storedTheme = localStorage.getItem('theme');
 
   constructor(private dataService: DataService) {
     this.setTheme(this.getPreferredTheme());
-    this.dataService.setData('switchTheme', this.switchTheme);
-    this.dataService.setData('setTheme', this.setTheme);
-    this.dataService.setData('getTheme', this.getTheme);
+    this.dataService.setData(
+      VARIABLE_NAME.switchThemeFunction,
+      this.switchTheme
+    );
+    this.dataService.setData(VARIABLE_NAME.setThemeFunction, this.setTheme);
+    this.dataService.setData(VARIABLE_NAME.getThemeFunction, this.getTheme);
   }
 
   getPreferredTheme() {

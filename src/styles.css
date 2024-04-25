@@ -13,6 +13,12 @@ body {
 
 /* #region this app only */
 
+button:disabled, .btn:disabled {
+    --bs-btn-disabled-color: var(--bs-secondary-color);
+    --bs-btn-disabled-bg: var(--bs-secondary-bg-subtle);
+    --bs-btn-disabled-border-color: var(--bs-btn-disabled-bg);
+}
+
 .thin-scrollbars {
     scrollbar-width: thin;
 }

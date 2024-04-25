@@ -1,5 +1,7 @@
-import { DataService } from '@/core/services/data.service';
 import { Component, HostListener } from '@angular/core';
+import { DataService } from '@/core/services/data.service';
+import { APP_INFO } from '@/shared/constants/app-info.constant';
+import { VARIABLE_NAME } from '@/shared/constants/variable-name.constant';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +9,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  protected appName: string = APP_INFO.appName;
   protected switchThemeFunction: any = undefined;
   protected setThemeFunction: any = undefined;
   protected getThemeFunction: any = undefined;
@@ -14,15 +17,21 @@ export class HeaderComponent {
   protected isScrolled: boolean = false;
 
   constructor(private dataService: DataService) {
-    this.switchThemeFunction = this.dataService.getData('switchTheme');
-    this.setThemeFunction = this.dataService.getData('setTheme');
-    this.getThemeFunction = this.dataService.getData('getTheme');
+    this.switchThemeFunction = this.dataService.getData(
+      VARIABLE_NAME.switchThemeFunction
+    );
+    this.setThemeFunction = this.dataService.getData(
+      VARIABLE_NAME.setThemeFunction
+    );
+    this.getThemeFunction = this.dataService.getData(
+      VARIABLE_NAME.getThemeFunction
+    );
     this.isDark = this.getTheme();
   }
 
   @HostListener('window:scroll')
   scrollEvent() {
-    window.scrollY >= 20 ? (this.isScrolled = true) : (this.isScrolled = false);
+    window.scrollY >= 10 ? (this.isScrolled = true) : (this.isScrolled = false);
   }
 
   toggleTheme() {

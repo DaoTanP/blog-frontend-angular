@@ -1,27 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './features/error/pages/not-found/not-found.component';
-import { LoginComponent } from './features/user/pages/login/login.component';
-import { RegisterComponent } from './features/user/pages/register/register.component';
-import { TwoColumnNavLayoutRoute } from './core/routes/two-column-nav-layout.routes';
-import { TwoColumnNavLayoutComponent } from './core/components/layout/two-column-nav-layout/two-column-nav-layout.component';
-import { ThreeColumnNavLayoutComponent } from './core/components/layout/three-column-nav-layout/three-column-nav-layout.component';
-import { ThreeColumnNavLayoutRoute } from './core/routes/three-column-nav-layout.routes';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '',
-    component: TwoColumnNavLayoutComponent,
-    children: TwoColumnNavLayoutRoute,
+    loadChildren: () =>
+      import('@/features/home/home.module').then((module) => module.HomeModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('@/features/auth/auth.module').then((module) => module.AuthModule),
   },
   {
     path: '',
-    component: ThreeColumnNavLayoutComponent,
-    children: ThreeColumnNavLayoutRoute,
+    loadChildren: () =>
+      import('@/features/post/post.module').then((module) => module.PostModule),
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
