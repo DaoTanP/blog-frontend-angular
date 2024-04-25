@@ -5,7 +5,7 @@
     --bs-border-opacity: 1;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
     #form-container {
         max-width: 500px;
     }
@@ -15,4 +15,4 @@
     #form-container {
         max-width: 416px;
     }
-}
+} */

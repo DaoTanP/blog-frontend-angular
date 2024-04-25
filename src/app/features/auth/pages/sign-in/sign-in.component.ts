@@ -1,25 +1,18 @@
 import { Component } from '@angular/core';
-import {
-  FormControl,
-  Validators,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',
 })
 export class SignInComponent {
   protected waiting: boolean = false;
 
-  protected username: FormControl = new FormControl(null, [
+  protected usernameOrEmail: FormControl = new FormControl(null, [
     Validators.required,
-    Validators.minLength(5),
+    Validators.minLength(3),
+    Validators.maxLength(30),
   ]);
   protected password: FormControl = new FormControl(null, [
     Validators.required,
@@ -27,14 +20,11 @@ export class SignInComponent {
   ]);
 
   public signInForm: FormGroup = new FormGroup({
-    username: this.username,
+    usernameOrEmail: this.usernameOrEmail,
     password: this.password,
   });
-  constructor(
-    // private httpService: HttpService,
-    // private authGuardService: AuthGuardService,
-    private router: Router // private alertService: AlertService
-  ) {
+  constructor() {
+    // private alertService: AlertService // private authGuardService: AuthGuardService, // private httpService: HttpService,
     // if (authGuardService.isLoggedIn) router.navigate(['home']);
   }
 

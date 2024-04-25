@@ -1,0 +1,6 @@
+.social-media-btn {
+    --bs-border-opacity: .25;
+}
+.social-media-btn:hover {
+    --bs-border-opacity: 1;
+}

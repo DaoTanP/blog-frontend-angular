@@ -1,3 +1,8 @@
+.list-group-item {
+    --bs-list-group-item-padding-y: .75rem;
+    /* padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x); */
+}
+
 .list-group-item-action.active {
     color: rgba(var(--bs-emphasis-color-rgb), .85);
     background-color: rgba(var(--bs-secondary-bg-rgb), 1);
