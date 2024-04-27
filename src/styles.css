@@ -248,7 +248,7 @@ blockquote.dark {
     --blockquote-border: var(--bs-dark-border-subtle);
 }
 
-
+/* #region animate.css 3.5.1 */
 
 /*!
 * animate.css -http://daneden.me/animate
@@ -257,6 +257,7 @@ blockquote.dark {
 *
 * Copyright (c) 2016 Daniel Eden
 */
+/* 
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -3724,4 +3725,6 @@ blockquote.dark {
 .show>.scale-up-left {
     transform: scale(1);
     transform-origin: left 0
-}
+} */
+
+/* #endregion */

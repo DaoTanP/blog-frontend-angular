@@ -67,99 +67,128 @@
         </div>
 
         <div class="col d-flex justify-content-center h-100 overflow-y-auto">
-            <div id="form-container" class="card border-0 w-100 my-auto animated fadeIn" style="max-width: 416px">
+            <div id="form-container" class="card border-0 w-100 my-auto animate__animated animate__fadeIn"
+                style="max-width: 416px">
                 <div class="card-body p-md-0">
 
                     <form [formGroup]="signUpForm" (ngSubmit)="signUp()" id="signInFormId" class="d-flex flex-column">
                         <input class="visually-hidden" type="checkbox" #formStep />
 
-                        <ng-container *ngTemplateOutlet="formStep.checked ? step2 : step1"></ng-container>
-                        <ng-template #step1>
-                            <div class="animated fadeIn">
-                                <h2 class="card-title fw-bold mb-4">Sign Up</h2>
-                                <div class="d-flex flex-column gap-2 justify-content-center">
-                                    <button
-                                        class="btn social-media-btn border-2 border-secondary p-3 bg-body focus-ring focus-ring-primary rounded-pill d-flex fw-semibold">
-                                        <i class="bi bi-google"></i>
-                                        <span class="flex-grow-1">Continue with Google</span>
-                                    </button>
-                                    <button
-                                        class="btn social-media-btn border-2 border-secondary p-3 bg-body focus-ring focus-ring-primary rounded-pill d-flex fw-semibold">
-                                        <i class="bi bi-facebook"></i>
-                                        <span class="flex-grow-1">Continue with Facebook</span>
-                                    </button>
-                                </div>
-                                <div id="separator" class="d-flex gap-2 my-4">
-                                    <div class="flex-grow-1 border-2 border-top border-gray"
-                                        style="margin-top: 0.75rem;">
-                                    </div>
-                                    <p class="text-center mb-0 text-uppercase">or</p>
-                                    <div class="flex-grow-1 border-2 border-top border-gray"
-                                        style="margin-top: 0.75rem;">
-                                    </div>
-                                </div>
-                                <div class="mb-4 w-100">
-                                    <label for="email" class="form-label fw-bold">Email</label>
-                                    <input type="email" id="email" class="form-control p-3 border-2 rounded-4"
-                                        [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
-                                        formControlName="email" aria-describedby="helpEmailId">
-                                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-                                        <div *ngIf="email.errors?.['required']">
-                                            <small id="helpEmailId">Email is required</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary d-block w-100 rounded-pill p-3 fw-semibold"
-                                    (click)="formStep.checked = !formStep.checked"
-                                    [disabled]="email.invalid">Continue</button>
+                        <!-- <ng-container *ngTemplateOutlet="formStep.checked ? step2 : step1"></ng-container>
+                        <ng-template #step1> -->
+                        <div class="animate__animated animate__fadeIn animate__faster"
+                            [ngClass]="formStep.checked ? 'd-none' : 'd-block'" style="--animate-duration: 0.5s">
+                            <h2 class="card-title fw-bold mb-4">Sign Up</h2>
+                            <div class="d-flex flex-column gap-2 justify-content-center">
+                                <button
+                                    class="btn social-media-btn border-2 border-secondary p-3 bg-body focus-ring focus-ring-primary rounded-pill d-flex fw-semibold">
+                                    <i class="bi bi-google"></i>
+                                    <span class="flex-grow-1">Continue with Google</span>
+                                </button>
+                                <button
+                                    class="btn social-media-btn border-2 border-secondary p-3 bg-body focus-ring focus-ring-primary rounded-pill d-flex fw-semibold">
+                                    <i class="bi bi-facebook"></i>
+                                    <span class="flex-grow-1">Continue with Facebook</span>
+                                </button>
                             </div>
-                        </ng-template>
+                            <div id="separator" class="d-flex gap-2 my-4">
+                                <div class="flex-grow-1 border-2 border-top border-gray" style="margin-top: 0.75rem;">
+                                </div>
+                                <p class="text-center mb-0 text-uppercase">or</p>
+                                <div class="flex-grow-1 border-2 border-top border-gray" style="margin-top: 0.75rem;">
+                                </div>
+                            </div>
+                            <div class="mb-4 w-100">
+                                <label for="email-input" class="form-label fw-bold">Email</label>
+                                <div class="position-relative">
+                                    <input type="email" id="email-input" class="form-control p-3 border-2 rounded-4"
+                                        [class.is-invalid]="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)"
+                                        [class.is-valid]="emailFormControl.valid && (emailFormControl.dirty || emailFormControl.touched)"
+                                        [class.pe-5]="(emailFormControl.invalid || emailFormControl.valid || emailFormControl.status === 'PENDING') && (emailFormControl.dirty || emailFormControl.touched)"
+                                        formControlName="email">
+                                    <div class="position-absolute top-0 end-0 h-100 d-flex align-items-center p-3"
+                                        [ngClass]="emailFormControl.status === 'PENDING' ? 'd-block' : 'd-none'">
+                                        <span class="ld ld-ring ld-cycle fs-3 text-primary"></span>
+                                    </div>
+                                </div>
+                                <small
+                                    *ngIf="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)"
+                                    class="text-danger mt-1 d-block">
+                                    <div *ngIf="emailFormControl.errors?.['email']">Invalid email format</div>
+                                    <div *ngIf="emailFormControl.errors?.['required']">Email can not be empty</div>
+                                    <div *ngIf="emailFormControl.errors?.['exists']">Email already exists</div>
+                                </small>
+                                <small
+                                    *ngIf="emailFormControl.valid && (emailFormControl.dirty || emailFormControl.touched)"
+                                    class="text-success mt-1 d-block">
+                                    Good to go!
+                                </small>
+                            </div>
+                            <button type="button" class="btn btn-primary d-block w-100 rounded-pill p-3 fw-semibold"
+                                (click)="formStep.checked = !formStep.checked"
+                                [disabled]="emailFormControl.invalid || emailFormControl.status === 'PENDING'">Continue</button>
+                        </div>
+                        <!-- </ng-template>
 
-                        <ng-template #step2>
-                            <div class="animated fadeIn">
-                                <div>
-                                    <button class="btn rounded-pill fw-semibold d-flex p-3"
-                                        (click)="formStep.checked = !formStep.checked">
-                                        <i class="fa-solid fa-arrow-left"></i>
-                                    </button>
-                                </div>
-                                <h2 class="card-title fw-bold mb-4">Create your username and password
-                                </h2>
-                                <div class="mb-4 w-100">
-                                    <label for="username" class="form-label fw-bold">Username</label>
-                                    <input type="text" id="username" class="form-control p-3 border-2 rounded-4"
-                                        [class.is-invalid]="username.invalid && (username.dirty || username.touched)"
-                                        formControlName="username" aria-describedby="helpUsernameId">
-                                    <div *ngIf="username.invalid && (username.dirty || username.touched)"
-                                        class="text-danger">
-                                        <div *ngIf="username.errors?.['required']">
-                                            <small id="helpUsernameId">Tên đăng nhập không được bỏ trống</small>
-                                        </div>
-                                        <div *ngIf="username.errors?.['minlength']">
-                                            <small id="helpUsernameId">Tên đăng nhập phải chứa ít nhất {{
-                                                username.errors?.['minlength'].requiredLength }} kí tự</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-4 w-100">
-                                    <label for="password" class="form-label fw-bold">Password</label>
-                                    <input type="password" id="password" class="form-control p-3 border-2 rounded-4"
-                                        [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
-                                        formControlName="password" aria-describedby="helpPasswordId">
-                                    <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                                        class="text-danger">
-                                        <div *ngIf="password.errors?.['required']">
-                                            <small id="helpPasswordId">Mật khẩu không được bỏ trống</small>
-                                        </div>
-                                        <div *ngIf="password.errors?.['minlength']">
-                                            <small id="helpPasswordId">Mật khẩu phải từ 8 kí tự trở lên</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary d-block w-100 rounded-pill p-3 fw-semibold"
-                                    form="signInFormId" [disabled]="signUpForm.invalid">Sign up</button>
+                        <ng-template #step2> -->
+                        <div class="animate__animated animate__fadeIn animate__faster"
+                            [ngClass]="formStep.checked ? 'd-block' : 'd-none'" style="--animate-duration: 0.5s">
+                            <div>
+                                <button class="btn rounded-pill fw-semibold d-flex p-3"
+                                    (click)="formStep.checked = !formStep.checked">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </button>
                             </div>
-                        </ng-template>
+                            <h2 class="card-title fw-bold mb-4">Create your username and password
+                            </h2>
+                            <div class="mb-4 w-100">
+                                <label for="username-input" class="form-label fw-bold">Username</label>
+                                <div class="position-relative">
+                                    <input type="username" id="username-input"
+                                        class="form-control p-3 border-2 rounded-4"
+                                        [class.is-invalid]="usernameFormControl.invalid && (usernameFormControl.dirty || usernameFormControl.touched)"
+                                        [class.is-valid]="usernameFormControl.valid && (usernameFormControl.dirty || usernameFormControl.touched)"
+                                        [class.pe-5]="(usernameFormControl.invalid || usernameFormControl.valid || usernameFormControl.status === 'PENDING') && (usernameFormControl.dirty || usernameFormControl.touched)"
+                                        formControlName="username">
+                                    <div class="position-absolute top-0 end-0 h-100 d-flex align-items-center p-3"
+                                        [ngClass]="usernameFormControl.status === 'PENDING' ? 'd-block' : 'd-none'">
+                                        <span class="ld ld-ring ld-cycle fs-3 text-primary"></span>
+                                    </div>
+                                </div>
+                                <small
+                                    *ngIf="usernameFormControl.invalid && (usernameFormControl.dirty || usernameFormControl.touched)"
+                                    class="text-danger mt-1 d-block">
+                                    <div *ngIf="usernameFormControl.errors?.['username']">Invalid username format</div>
+                                    <div *ngIf="usernameFormControl.errors?.['required']">Username can not be empty
+                                    </div>
+                                    <div *ngIf="usernameFormControl.errors?.['exists']">Username already exists</div>
+                                </small>
+                                <small
+                                    *ngIf="usernameFormControl.valid && (usernameFormControl.dirty || usernameFormControl.touched)"
+                                    class="text-success mt-1 d-block">
+                                    Nice! Username available
+                                </small>
+                            </div>
+                            <div class="mb-4 w-100">
+                                <label for="password-input" class="form-label fw-bold">Password</label>
+                                <input type="password" id="password-input" class="form-control p-3 border-2 rounded-4"
+                                    [class.is-invalid]="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
+                                    [class.is-valid]="passwordFormControl.valid && (passwordFormControl.dirty || passwordFormControl.touched)"
+                                    [class.pe-5]="(passwordFormControl.invalid || passwordFormControl.valid) && (passwordFormControl.dirty || passwordFormControl.touched)"
+                                    formControlName="password">
+                                <small
+                                    *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
+                                    class="text-danger mt-1 d-block">
+                                    <div *ngIf="passwordFormControl.errors?.['required']">Password can not be empty
+                                    </div>
+                                    <div *ngIf="passwordFormControl.errors?.['minLength']">8 or more characters</div>
+                                </small>
+                            </div>
+                            <button type="submit" class="btn btn-primary d-block w-100 rounded-pill p-3 fw-semibold"
+                                form="signInFormId"
+                                [disabled]="signUpForm.invalid || signUpForm.status === 'PENDING'">Sign up</button>
+                        </div>
+                        <!-- </ng-template> -->
                     </form>
 
                     <p class="text-center m-0 mt-4">

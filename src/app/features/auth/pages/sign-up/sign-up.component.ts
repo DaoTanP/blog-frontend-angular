@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '@/core/services/api.service';
+import { REGEX_PATTERN } from '@/shared/constants/regex-pattern.constant';
+import {
+  emailExistValidator,
+  usernameExistValidator,
+} from '@/shared/validators/api.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,27 +15,33 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignUpComponent {
   protected waiting: boolean = false;
 
-  protected email: FormControl = new FormControl(null, [
-    Validators.required,
-    Validators.email,
-  ]);
-  protected username: FormControl = new FormControl(null, [
-    Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(30),
-    Validators.pattern(/^[A-Za-z0-9_-]+$/),
-  ]);
-  protected password: FormControl = new FormControl(null, [
+  protected emailFormControl: FormControl = new FormControl(
+    null,
+    [Validators.required, Validators.email],
+    [emailExistValidator(this.apiService)]
+  );
+  protected usernameFormControl: FormControl = new FormControl(
+    null,
+    [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(30),
+      Validators.pattern(REGEX_PATTERN.username),
+    ],
+    [usernameExistValidator(this.apiService)]
+  );
+  protected passwordFormControl: FormControl = new FormControl(null, [
     Validators.required,
     Validators.minLength(8),
   ]);
 
   public signUpForm: FormGroup = new FormGroup({
-    email: this.email,
-    username: this.username,
-    password: this.password,
+    email: this.emailFormControl,
+    username: this.usernameFormControl,
+    password: this.passwordFormControl,
   });
-  constructor() {}
+
+  constructor(private apiService: ApiService) {}
 
   public signUp(): void {
     console.log(this.signUpForm.value);
