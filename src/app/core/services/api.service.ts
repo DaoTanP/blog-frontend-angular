@@ -26,12 +26,15 @@ export class ApiService {
     );
   }
 
-  // public login(user: User): Observable<any> {
-  //   return this.httpClient.post(
-  //     this.USER_API_URL + '/login',
-  //     user /* { observe: 'response', responseType: "text" } */
-  //   );
-  // }
+  public signin(signInDTO: {
+    usernameOrEmail: string;
+    password: string;
+  }): Observable<{ access_token: string }> {
+    return this.httpClient.post<{ access_token: string }>(
+      this.API_URL + this.API_PATH.auth + '/signin',
+      signInDTO
+    );
+  }
 
   // public register(user: User): Observable<any> {
   //   return this.httpClient.post(this.USER_API_URL, user);

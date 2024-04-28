@@ -92,33 +92,34 @@
                     </div>
 
 
-                    <form [formGroup]="signInForm" (ngSubmit)="signIn()" id="signInFormId" class="d-flex flex-column">
+                    <form [formGroup]="signInForm" (ngSubmit)="signin()" id="signInFormId" class="d-flex flex-column">
                         <div class="mb-4 w-100">
                             <label for="usernameOrEmail" class="form-label fw-bold">Username or email</label>
                             <input type="text" id="usernameOrEmail" class="form-control p-3 border-2 rounded-4"
-                                [class.is-invalid]="usernameOrEmail.invalid && (usernameOrEmail.dirty || usernameOrEmail.touched)"
+                                [class.is-invalid]="usernameOrEmailFormControl.invalid && (usernameOrEmailFormControl.dirty || usernameOrEmailFormControl.touched)"
                                 formControlName="usernameOrEmail" aria-describedby="helpUsernameOrEmailId">
-                            <div *ngIf="usernameOrEmail.invalid && (usernameOrEmail.dirty || usernameOrEmail.touched)"
+                            <div *ngIf="usernameOrEmailFormControl.invalid && (usernameOrEmailFormControl.dirty || usernameOrEmailFormControl.touched)"
                                 class="text-danger">
-                                <div *ngIf="usernameOrEmail.errors?.['required']">
+                                <div *ngIf="usernameOrEmailFormControl.errors?.['required']">
                                     <small id="helpUsernameOrEmailId">Tên đăng nhập không được bỏ trống</small>
                                 </div>
-                                <div *ngIf="usernameOrEmail.errors?.['minlength']">
+                                <div *ngIf="usernameOrEmailFormControl.errors?.['minlength']">
                                     <small id="helpUsernameOrEmailId">Tên đăng nhập phải chứa ít nhất {{
-                                        usernameOrEmail.errors?.['minlength'].requiredLength }} kí tự</small>
+                                        usernameOrEmailFormControl.errors?.['minlength'].requiredLength }} kí tự</small>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-4 w-100">
                             <label for="password" class="form-label fw-bold">Password</label>
                             <input type="password" class="form-control p-3 border-2 rounded-4"
-                                [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+                                [class.is-invalid]="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
                                 formControlName="password" aria-describedby="helpPasswordId">
-                            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
-                                <div *ngIf="password.errors?.['required']">
+                            <div *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
+                                class="text-danger">
+                                <div *ngIf="passwordFormControl.errors?.['required']">
                                     <small id="helpPasswordId">Mật khẩu không được bỏ trống</small>
                                 </div>
-                                <div *ngIf="password.errors?.['minlength']">
+                                <div *ngIf="passwordFormControl.errors?.['minlength']">
                                     <small id="helpPasswordId">Mật khẩu phải từ 8 kí tự trở lên</small>
                                 </div>
                             </div>
