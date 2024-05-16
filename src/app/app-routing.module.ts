@@ -15,9 +15,14 @@ const routes: Routes = [
       import('@/features/auth/auth.module').then((module) => module.AuthModule),
   },
   {
-    path: '',
+    path: 'post',
     loadChildren: () =>
       import('@/features/post/post.module').then((module) => module.PostModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () =>
+      import('@/features/user/user.module').then((module) => module.UserModule),
   },
   { path: '**', component: NotFoundComponent },
 ];

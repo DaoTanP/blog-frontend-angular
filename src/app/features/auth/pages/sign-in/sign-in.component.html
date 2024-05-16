@@ -97,32 +97,31 @@
                             <label for="usernameOrEmail" class="form-label fw-bold">Username or email</label>
                             <input type="text" id="usernameOrEmail" class="form-control p-3 border-2 rounded-4"
                                 [class.is-invalid]="usernameOrEmailFormControl.invalid && (usernameOrEmailFormControl.dirty || usernameOrEmailFormControl.touched)"
-                                formControlName="usernameOrEmail" aria-describedby="helpUsernameOrEmailId">
-                            <div *ngIf="usernameOrEmailFormControl.invalid && (usernameOrEmailFormControl.dirty || usernameOrEmailFormControl.touched)"
-                                class="text-danger">
-                                <div *ngIf="usernameOrEmailFormControl.errors?.['required']">
-                                    <small id="helpUsernameOrEmailId">Tên đăng nhập không được bỏ trống</small>
+                                [formControl]="usernameOrEmailFormControl">
+                            <small
+                                *ngIf="usernameOrEmailFormControl.invalid && (usernameOrEmailFormControl.dirty || usernameOrEmailFormControl.touched)"
+                                class="text-danger mt-1 d-block">
+                                <div *ngIf="usernameOrEmailFormControl.errors?.['required']">Username or email can not
+                                    be empty
                                 </div>
-                                <div *ngIf="usernameOrEmailFormControl.errors?.['minlength']">
-                                    <small id="helpUsernameOrEmailId">Tên đăng nhập phải chứa ít nhất {{
-                                        usernameOrEmailFormControl.errors?.['minlength'].requiredLength }} kí tự</small>
-                                </div>
-                            </div>
+                                <div *ngIf="usernameOrEmailFormControl.errors?.['minlength']">Username or email must
+                                    have at
+                                    least {{
+                                    usernameOrEmailFormControl.errors?.['minlength'].requiredLength }} characters.</div>
+                            </small>
                         </div>
                         <div class="mb-4 w-100">
                             <label for="password" class="form-label fw-bold">Password</label>
                             <input type="password" class="form-control p-3 border-2 rounded-4"
                                 [class.is-invalid]="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
-                                formControlName="password" aria-describedby="helpPasswordId">
-                            <div *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
-                                class="text-danger">
-                                <div *ngIf="passwordFormControl.errors?.['required']">
-                                    <small id="helpPasswordId">Mật khẩu không được bỏ trống</small>
-                                </div>
-                                <div *ngIf="passwordFormControl.errors?.['minlength']">
-                                    <small id="helpPasswordId">Mật khẩu phải từ 8 kí tự trở lên</small>
-                                </div>
-                            </div>
+                                [formControl]="passwordFormControl">
+                            <small
+                                *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
+                                class="text-danger mt-1 d-block">
+                                <div *ngIf="passwordFormControl.errors?.['required']">Password can not be empty</div>
+                                <div *ngIf="passwordFormControl.errors?.['minlength']">Password must have at least {{
+                                    passwordFormControl.errors?.['minlength'].requiredLength }} characters.</div>
+                            </small>
                         </div>
                     </form>
                     <div class="mb-3"><a class="text-decoration-none">Forgot password?</a></div>

@@ -12,7 +12,7 @@
             style="row-gap: 2rem;">
             <div class="flex-grow-1" style="padding: 4rem 2rem 0;">
                 <a href="https://webflow.com/solutions/freelancers?utm_source=dribbble&amp;utm_medium=referral&amp;utm_campaign=partnerships&amp;utm_content=signin"
-                    style="display: block; width: 141px;" data-standalone-ad-cta="">
+                    style="display: block; width: 141px;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 181" fill="none" role="img" class="icon ">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M288.606 0.684082L196.515 180.711H110.016L148.556 106.1H146.827C115.032 147.374 67.5931 174.545 0 180.711V107.133C0 107.133 43.2409 104.579 68.661 77.8531H0V0.685504H77.1676V64.1547L78.8996 64.1476L110.433 0.685504H168.793V63.7523L170.525 63.7495L203.241 0.684082H288.606Z"
@@ -59,7 +59,6 @@
                     href="https://webflow.com/solutions/freelancers?utm_source=dribbble&amp;utm_medium=referral&amp;utm_campaign=partnerships&amp;utm_content=signin">
                     <video class="object-fit-cover h-100" style="object-position: center center;" autoplay loop
                         [volume]="0"
-                        poster="https://cdn.dribbble.com/uploads/54168/original/7d67dc003049d4618396483b74b746ae.jpeg?1711379218"
                         src="https://cdn.dribbble.com/uploads/54794/original/aa820cb78e67b2b12b5b4ee0bf8562af.mp4?1713807748">
                     </video>
                 </a>
@@ -105,10 +104,13 @@
                                         [class.is-invalid]="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)"
                                         [class.is-valid]="emailFormControl.valid && (emailFormControl.dirty || emailFormControl.touched)"
                                         [class.pe-5]="(emailFormControl.invalid || emailFormControl.valid || emailFormControl.status === 'PENDING') && (emailFormControl.dirty || emailFormControl.touched)"
-                                        formControlName="email">
+                                        [formControl]="emailFormControl">
                                     <div class="position-absolute top-0 end-0 h-100 d-flex align-items-center p-3"
                                         [ngClass]="emailFormControl.status === 'PENDING' ? 'd-block' : 'd-none'">
-                                        <span class="ld ld-ring ld-cycle fs-3 text-primary"></span>
+                                        <!-- <span class="ld ld-ring ld-cycle fs-3 text-primary"></span> -->
+                                        <div class="spinner-border fs-5 text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <small
@@ -149,7 +151,7 @@
                                         [class.is-invalid]="usernameFormControl.invalid && (usernameFormControl.dirty || usernameFormControl.touched)"
                                         [class.is-valid]="usernameFormControl.valid && (usernameFormControl.dirty || usernameFormControl.touched)"
                                         [class.pe-5]="(usernameFormControl.invalid || usernameFormControl.valid || usernameFormControl.status === 'PENDING') && (usernameFormControl.dirty || usernameFormControl.touched)"
-                                        formControlName="username">
+                                        [formControl]="usernameFormControl">
                                     <div class="position-absolute top-0 end-0 h-100 d-flex align-items-center p-3"
                                         [ngClass]="usernameFormControl.status === 'PENDING' ? 'd-block' : 'd-none'">
                                         <span class="ld ld-ring ld-cycle fs-3 text-primary"></span>
@@ -175,7 +177,7 @@
                                     [class.is-invalid]="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
                                     [class.is-valid]="passwordFormControl.valid && (passwordFormControl.dirty || passwordFormControl.touched)"
                                     [class.pe-5]="(passwordFormControl.invalid || passwordFormControl.valid) && (passwordFormControl.dirty || passwordFormControl.touched)"
-                                    formControlName="password">
+                                    [formControl]="passwordFormControl">
                                 <small
                                     *ngIf="passwordFormControl.invalid && (passwordFormControl.dirty || passwordFormControl.touched)"
                                     class="text-danger mt-1 d-block">

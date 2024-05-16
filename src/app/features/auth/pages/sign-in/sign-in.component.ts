@@ -1,8 +1,12 @@
+import { SignInDTO } from '@/core/models/dto/sign-in.dto';
+import { TokenDTO } from '@/core/models/dto/token.dto';
 import { ApiService } from '@/core/services/api.service';
+import { AuthService } from '@/core/services/auth.service';
 import { REGEX_PATTERN } from '@/shared/constants/regex-pattern.constant';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,19 +31,25 @@ export class SignInComponent {
     usernameOrEmail: this.usernameOrEmailFormControl,
     password: this.passwordFormControl,
   });
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    private authService: AuthService
+  ) {}
 
   public signin(): void {
     //   this.alertService.clearAlert();
     //   this.waiting = true;
 
-    this.apiService.signin(this.signInForm.value).subscribe({
-      next: (res) => {
+    const signInDTO: SignInDTO = this.signInForm.value as SignInDTO;
+
+    this.apiService.signin(signInDTO).subscribe({
+      next: (res: TokenDTO) => {
         this.waiting = false;
-        console.log(res);
+        this.authService.setToken(res);
 
         // this.authGuardService.signin(res.id);
-        // this.router.navigate(['home']);
+        this.router.navigate(['/']);
       },
       error: (err: HttpErrorResponse) => {
         this.waiting = false;

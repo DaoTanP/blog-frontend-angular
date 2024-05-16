@@ -1,0 +1,50 @@
+:host ::ng-deep .ck.ck-toolbar__items {
+    flex-wrap: wrap !important;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 10rem !important;
+}
+
+:host ::ng-deep .ck-editor {
+    border-width: 2px !important;
+    border-radius: var(--bs-border-radius);
+    /* border-color: var(--bs-border-color); */
+}
+
+:host ::ng-deep .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+    border-radius: calc(var(--bs-border-radius) / 1.75);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-width: 2px !important;
+    /* border-color: var(--bs-border-color); */
+}
+
+:host ::ng-deep .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content, .ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content.ck-rounded-corners {
+    border-radius: calc(var(--bs-border-radius) / 1.75);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-width: 2px !important;
+    border-bottom-width: 0 !important;
+    /* border-color: var(--bs-border-color); */
+}
+
+.input-sizer {
+    display: inline-grid;
+    vertical-align: top;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.input-sizer::after {
+    content: attr(data-value) "  ";
+    height: 0;
+    visibility: hidden;
+    font-family: inherit;
+    font-size: inherit;
+    white-space: pre-wrap;
+}

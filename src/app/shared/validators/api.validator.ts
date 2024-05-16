@@ -26,8 +26,16 @@ export function emailExistValidator(apiService: ApiService): AsyncValidatorFn {
           )
           .pipe(
             catchError((error: HttpErrorResponse) => {
-              if (error.status === 400) return of({ email: true });
-              return of(null);
+              switch (error.status) {
+                case 400:
+                  return of({ email: true });
+
+                case 0:
+                // return of({ connection: true });
+
+                default:
+                  return of(null);
+              }
             })
           )
       )

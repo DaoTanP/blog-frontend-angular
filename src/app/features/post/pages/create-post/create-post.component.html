@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <h2 class="fw-bold my-5">Create a post</h2>
+    <form [formGroup]="postForm" (ngSubmit)="createPost()" id="postForm" class="d-flex flex-column">
+        <div class="mb-4 w-100">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" class="form-control p-3 border-2"
+                [class.is-invalid]="titleFormControl.invalid && (titleFormControl.dirty || titleFormControl.touched)"
+                [formControl]="titleFormControl">
+            <div *ngIf="titleFormControl.invalid && (titleFormControl.dirty || titleFormControl.touched)"
+                class="text-danger">
+                <div *ngIf="titleFormControl.errors?.['required']">
+                    <small>Title is required</small>
+                </div>
+                <div *ngIf="titleFormControl.errors?.['maxlength']">
+                    <small>Title can not exceed {{
+                        titleFormControl.errors?.['maxlength'].requiredLength }} characters.</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4 w-100">
+            <label class="form-label">Body</label>
+            <ckeditor [editor]="editor"
+                data="<p>Press <kbd>Alt</kbd>+<kbd>0</kbd> (<kbd>⌥0</kbd> on Mac) while editing to display the list of available keyboard shortcuts.</p>"
+                [formControl]="bodyFormControl"></ckeditor>
+        </div>
+
+        <div class="mb-4 w-100">
+            <label class="form-label">Tags</label>
+            <div class="d-flex flex-wrap gap-2 py-1">
+                <div class="bg-body-secondary rounded-pill d-flex align-items-center px-1"
+                    *ngFor="let control of tagsFormArray.controls; index as i; trackBy:trackByFn">
+                    <div class="input-sizer" [attr.data-value]="getTag(i).value">
+                        <input type="text" class="p-0 px-1 border-0 text-start rounded-2 bg-body-secondary" size="1"
+                            spellcheck="false" style="outline: 0;" maxlength="30" #tagInput [formControl]="getTag(i)"
+                            (keydown.enter)="removeTagIfEmpty($event, i); trimTag($event, i); replaceSpaceWithUnderscore($event, i); addTagBtn.focus()"
+                            (blur)="removeTagIfEmpty($event, i); trimTag($event, i); replaceSpaceWithUnderscore($event, i);">
+                        <!-- (input)="tagInput.style.width = tagInput.value.length + 1 + 'ch'"
+                        (focus)="tagInput.style.width = tagInput.value.length + 1 + 'ch'" -->
+                    </div>
+                    <button type="button" class="btn btn-close rounded-circle ms-1" (click)="removeTag(i)">
+                    </button>
+                </div>
+                <button type="button" class="btn btn-ghost-secondary rounded-pill" (click)="addTag('')" #addTagBtn>
+                    <i class="fa-solid fa-plus"></i>
+                    Add tag
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex gap-2 justify-content-end mb-3">
+        <button type="submit" class="btn btn-primary rounded-pill p-2 px-3 fw-semibold" form="postForm"
+            [disabled]="postForm.invalid">Submit</button>
+    </div>
+
+</div>

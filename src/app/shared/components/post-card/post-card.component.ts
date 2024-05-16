@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Post } from '@/features/post/models/post.model';
+import { Post } from '@/core/models/post.model';
 
 @Component({
   selector: 'app-post-card',

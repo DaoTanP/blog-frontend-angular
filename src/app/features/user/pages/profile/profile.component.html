@@ -1,0 +1,127 @@
+<ng-container appNoWrapper="Parent">
+    <div class="row">
+        <div class="col m-lg-0 m-0 mx-sm-5">
+            <main class="py-2">
+                <div class="bg-body-secondary rounded w-100 overflow-hidden" style="height: 16rem;">
+                    <img alt="Random image" src="https://random-image-pepebigotes.vercel.app/api/random-image"
+                        class="w-100 h-100 object-fit-cover" style="max-height: 16rem;">
+                </div>
+
+                <div class="d-flex mx-3">
+                    <div class="avatar rounded-circle overflow-hidden me-3 bg-body-secondary p-1">
+                        <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user|async)?.username}}"
+                            alt="avatar" class="rounded-circle object-fit-cover bg-info" />
+
+                        <!-- <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user|async)?.username}}" alt="avatar"
+                                class="rounded-circle object-fit-cover d-inline-block me-3 bg-info"
+                                style="height: 10rem; aspect-ratio: 1/1; margin-top: -5rem;" /> -->
+                    </div>
+
+                    <div class="d-flex flex-column">
+                        <p class="h3">{{(user|async)?.displayName}}</p>
+                        <div class="text-muted">{{(user|async)?.username}}</div>
+                    </div>
+
+                    <div class="d-flex align-items-center ms-auto">
+                        <button class="btn btn-primary rounded-pill">Follow</button>
+                    </div>
+                </div>
+
+                <ul class="nav nav-pills mt-5 gap-3">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-1"
+                            type="button">About</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-2"
+                            type="button">Posts</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-3"
+                            type="button">Comments</button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane py-3 active" id="tab-1">
+                        {{(user|async|json)}}
+                    </div>
+                    <div class="tab-pane py-3" id="tab-2">
+                        <div class="d-flex flex-column">
+                            <app-post-card></app-post-card>
+                            <div class="border-top"></div>
+                            <app-post-card></app-post-card>
+                            <div class="border-top"></div>
+                            <app-post-card></app-post-card>
+                        </div>
+                    </div>
+                    <div class="tab-pane py-3" id="tab-3">
+                        Lorem ipsum dolor sit amet co
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div
+            class="col-lg-4 col-xxl-3 d-none d-lg-block border-start overflow-y-auto overflow-x-hidden sticky-top z-1 user-select-none styled-scrollbars h-screen-without-header top-without-header">
+            <aside>
+                <div class="p-3 rounded d-none d-md-block">
+                    <h6 class="pb-3 mb-3 text-uppercase text-secondary-emphasis">Top bloggers</h6>
+                    <div class="list-group list-group-flush">
+                        <a routerLink="/user"
+                            class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
+                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#007bff"></rect>
+                            </svg>
+                            <div class="small lh-sm">
+                                <strong class="d-block text-gray-dark">&#64;username</strong>
+                                <span class="d-block lh-sm">12 posts</span>
+                                <span class="d-block lh-sm">120 comments</span>
+                            </div>
+                        </a>
+                        <a routerLink="/user"
+                            class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
+                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#e83e8c"></rect>
+                            </svg>
+                            <div class="small lh-sm">
+                                <strong class="d-block text-gray-dark">&#64;username</strong>
+                                <span class="d-block lh-sm">12 posts</span>
+                                <span class="d-block lh-sm">120 comments</span>
+                            </div>
+                        </a>
+                        <a routerLink="/user"
+                            class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
+                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#6f42c1"></rect>
+                            </svg>
+                            <div class="small lh-sm">
+                                <strong class="d-block text-gray-dark">&#64;username</strong>
+                                <span class="d-block lh-sm">12 posts</span>
+                                <span class="d-block lh-sm">120 comments</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="p-3 rounded d-none d-md-block">
+                    <h6 class="pb-3 mb-3 text-uppercase text-secondary-emphasis">Bottom bloggers</h6>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat tempore impedit molestias ex
+                    ab
+                    qui
+                    recusandae doloribus commodi quam reprehenderit ipsum, voluptates, libero quisquam, voluptatibus
+                    iusto
+                    ratione ducimus corrupti laboriosam nemo facere? Non cum doloremque quis quos blanditiis itaque
+                    nostrum
+                    veniam corporis qui nulla possimus architecto laudantium.
+                </div>
+            </aside>
+        </div>
+    </div>
+</ng-container>

@@ -16,11 +16,18 @@
         <app-search-input class="flex-grow-1"></app-search-input>
         <div class="mx-0 mx-lg-5"></div>
 
-        <button class="btn btn-primary rounded-pill mx-lg-3" routerLink="/auth/signin">Log In</button>
+        <button [ngClass]="{'d-none': (isLoggedIn | async)}" class="btn btn-primary rounded-pill mx-lg-3"
+            routerLink="/auth/signin">Log In</button>
 
-        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+        <button [ngClass]="{'d-none': !(isLoggedIn | async)}" class="btn btn-ghost-secondary rounded-pill mx-lg-3"
+            routerLink="/post/create">
+            <i class="fa-solid fa-plus"></i>
+            Create
+        </button>
 
-            <li class="nav-item col-lg-auto d-flex align-items-center">
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto gap-2">
+
+            <!-- <li class="nav-item col-lg-auto d-flex align-items-center">
                 <span *ngIf="switchThemeFunction != undefined">
                     <input type="checkbox" class="btn-check" id="btn-check-theme" autocomplete="off"
                         (click)="toggleTheme()">
@@ -28,7 +35,6 @@
                         class="d-none d-lg-inline-block btn btn-outline-secondary border-light-subtle text-body bg-body-secondary rounded-circle p-2"
                         for="btn-check-theme">
                         <span *ngIf="isDark" class="d-flex">
-                            <!-- moon icon -->
                             <svg style="width: 1.25em; height: 1.25em; aspect-ratio: 1/1;"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path fill="currentColor"
@@ -36,7 +42,6 @@
                             </svg>
                         </span>
                         <span *ngIf="!isDark" class="d-flex">
-                            <!-- sun icon -->
                             <svg style="width: 1.25em; height: 1.25em; aspect-ratio: 1/1;"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path fill="currentColor"
@@ -57,7 +62,51 @@
                         </span>
                     </label>
                 </span>
+            </li> -->
+
+            <li class="nav-item col-lg-auto d-flex align-items-center dropdown">
+                <button class="btn btn-ghost-secondary rounded-circle p-2 dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    <i class="fa-solid fa-ellipsis fs-5 d-flex align-items-center justify-content-center"
+                        style="width: 1em; height: 1em;"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end mt-3 overflow-hidden overflow-y-auto thin-scrollbars fs-5"
+                    style="max-height: 50dvh; min-width: 16rem;">
+                    <ng-container *ngTemplateOutlet="(isLoggedIn | async) ? loggedInUserDropdown : guestDropdown">
+                    </ng-container>
+                    <ng-template #guestDropdown>
+                        <a class="dropdown-item py-2 d-flex align-items-center" routerLink="/auth/signin">
+                            <i style="width: 1em;" class="fa-solid fa-sign-in me-3 text-start"></i>
+                            Log in / Sign up
+                        </a>
+                    </ng-template>
+
+                    <ng-template #loggedInUserDropdown>
+                        <a class="dropdown-item py-2 d-flex align-items-center"
+                            routerLink="/user/{{(user | async)?.username}}">
+                            <i style="width: 1em;" class="fa-solid fa-user me-3 text-start"></i>
+                            {{(user | async)?.username}}
+                        </a>
+                        <button class="dropdown-item py-2 d-flex align-items-center" (click)="logout()">
+                            <i style="width: 1em;" class="fa-solid fa-sign-out me-3 text-start"></i>
+                            Log Out
+                        </button>
+                    </ng-template>
+
+                    <button class="dropdown-item py-2 d-flex align-items-center" (click)="toggleTheme()">
+                        <i style="width: 1em;" class="fa-solid me-3 text-end {{isDark ? 'fa-moon' : 'fa-sun'}}"></i>
+                        Theme:&nbsp;
+                        <span *ngIf="isDark">
+                            Dark
+                        </span>
+                        <span *ngIf="!isDark">
+                            Light
+                        </span>
+                    </button>
+                </div>
             </li>
+
+
         </ul>
     </div>
 </nav>

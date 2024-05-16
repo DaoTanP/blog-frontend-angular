@@ -2,6 +2,13 @@ import { API_CONFIG } from '@/shared/constants/api-config.constant';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SignInDTO } from '@/core/models/dto/sign-in.dto';
+import { SignUpDTO } from '@/core/models/dto/sign-up.dto';
+import { TokenDTO } from '@/core/models/dto/token.dto';
+import { User } from '@/core/models/user.model';
+import { UpdateUserDTO } from '@/core/models/dto/update-user.dto';
+import { CreatePostDTO } from '@/core/models/dto/create-post.dto';
+import { Post } from '@/core/models/post.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,29 +33,55 @@ export class ApiService {
     );
   }
 
-  public signin(signInDTO: {
-    usernameOrEmail: string;
-    password: string;
-  }): Observable<{ access_token: string }> {
-    return this.httpClient.post<{ access_token: string }>(
+  public signin(signInDTO: SignInDTO): Observable<TokenDTO> {
+    return this.httpClient.post<TokenDTO>(
       this.API_URL + this.API_PATH.auth + '/signin',
       signInDTO
     );
   }
 
-  // public register(user: User): Observable<any> {
-  //   return this.httpClient.post(this.USER_API_URL, user);
-  // }
+  public signup(signUpDTO: SignUpDTO): Observable<TokenDTO> {
+    return this.httpClient.post<TokenDTO>(
+      this.API_URL + this.API_PATH.auth + '/signup',
+      signUpDTO
+    );
+  }
 
-  // public getUserData(id: string): Observable<any> {
-  //   console.log('requesting user data');
+  public signout(): Observable<boolean> {
+    return this.httpClient.post<boolean>(
+      this.API_URL + this.API_PATH.auth + '/signout',
+      {}
+    );
+  }
 
-  //   return this.httpClient.get(this.USER_API_URL + '/' + id);
-  // }
+  public refreshAccessToken(): Observable<TokenDTO> {
+    return this.httpClient.post<TokenDTO>(
+      this.API_URL + this.API_PATH.auth + '/refresh',
+      {}
+    );
+  }
 
-  // public editUser(user: any): Observable<any> {
-  //   return this.httpClient.put(this.USER_API_URL, user);
-  // }
+  public getProfile(username?: string): Observable<User> {
+    return this.httpClient.get<User>(
+      this.API_URL +
+        this.API_PATH.user +
+        `/profile${username ? `/${username}` : ''}`
+    );
+  }
+
+  public editUser(updateUserDTO: UpdateUserDTO): Observable<User> {
+    return this.httpClient.put<User>(
+      this.API_URL + this.API_PATH.user + '/profile',
+      updateUserDTO
+    );
+  }
+
+  public createPost(createPostDTO: CreatePostDTO): Observable<Post> {
+    return this.httpClient.post<Post>(
+      this.API_URL + this.API_PATH.post,
+      createPostDTO
+    );
+  }
 
   // public deleteUser(user: User): Observable<any> {
   //   return this.httpClient.post(this.USER_API_URL + '/delete', user, {

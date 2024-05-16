@@ -21,3 +21,7 @@
     background-color: currentColor;
     color: var(--bs-border-color)
 }
+
+.dropdown-toggle::after {
+    content: unset;
+}

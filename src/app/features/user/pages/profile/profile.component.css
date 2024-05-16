@@ -1,0 +1,20 @@
+.nav-underline {
+    box-shadow: 0 4px 2px -4px gray;
+}
+
+.nav-pills .nav-link {
+    border-radius: var(--bs-border-radius-pill) !important;
+}
+
+.nav-pills .nav-link:not(.active):hover {
+    border-bottom: var(--bs-nav-underline-border-width) solid;
+    border-color: gray;
+}
+
+.avatar {
+    --avatar-size: 10rem;
+    height: var(--avatar-size);
+    width: var(--avatar-size);
+    margin-top: calc(-1 * var(--avatar-size) / 2);
+    /* box-shadow: 0 0 0 3px var(--bs-border-color); */
+}
