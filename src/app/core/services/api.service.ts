@@ -1,5 +1,5 @@
 import { API_CONFIG } from '@/shared/constants/api-config.constant';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SignInDTO } from '@/core/models/dto/sign-in.dto';
@@ -16,8 +16,15 @@ import { Post } from '@/core/models/post.model';
 export class ApiService {
   private readonly API_URL = API_CONFIG.url;
   private readonly API_PATH = API_CONFIG.paths;
+  private genericHttpClient: HttpClient;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private handler: HttpBackend) {
+    this.genericHttpClient = new HttpClient(handler);
+  }
+
+  public get(url: string): Observable<unknown> {
+    return this.genericHttpClient.get(url);
+  }
 
   public isEmailAvailable(email: string): Observable<boolean> {
     return this.httpClient.post<boolean>(
@@ -69,10 +76,24 @@ export class ApiService {
     );
   }
 
-  public editUser(updateUserDTO: UpdateUserDTO): Observable<User> {
+  public updateProfile(updateUserDTO: UpdateUserDTO): Observable<User> {
     return this.httpClient.put<User>(
       this.API_URL + this.API_PATH.user + '/profile',
       updateUserDTO
+    );
+  }
+
+  public followUser(userId: string): Observable<boolean> {
+    return this.httpClient.post<boolean>(
+      this.API_URL + this.API_PATH.user + '/follow',
+      { userId }
+    );
+  }
+
+  public unfollowUser(userId: string): Observable<boolean> {
+    return this.httpClient.post<boolean>(
+      this.API_URL + this.API_PATH.user + '/unfollow',
+      { userId }
     );
   }
 
@@ -80,6 +101,42 @@ export class ApiService {
     return this.httpClient.post<Post>(
       this.API_URL + this.API_PATH.post,
       createPostDTO
+    );
+  }
+
+  public getAllPosts(skip: number, take: number): Observable<Post[]> {
+    return this.httpClient.get<Post[]>(
+      this.API_URL + this.API_PATH.post + `?skip=${skip}&take=${take}`
+    );
+  }
+
+  public getAllPostsByUsername(
+    username: string,
+    skip: number,
+    take: number
+  ): Observable<Post[]> {
+    return this.httpClient.get<Post[]>(
+      this.API_URL +
+        this.API_PATH.post +
+        `/user/${username}?skip=${skip}&take=${take}`
+    );
+  }
+
+  public getPostById(id: string): Observable<Post> {
+    return this.httpClient.get<Post>(
+      this.API_URL + this.API_PATH.post + `/${id}`
+    );
+  }
+
+  public searchPost(
+    query: string,
+    skip: number,
+    take: number
+  ): Observable<Post[]> {
+    return this.httpClient.get<Post[]>(
+      this.API_URL +
+        this.API_PATH.post +
+        `/search?query=${query}&skip=${skip}&take=${take}`
     );
   }
 

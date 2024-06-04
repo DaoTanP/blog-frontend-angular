@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthRequestInterceptor } from './core/interceptors/auth-request.interceptor';
 import { appInitializer } from './core/helpers/app.initializer';
 import { AuthService } from './core/services/auth.service';
+import { AlertComponent } from './core/components/alert/alert.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { AuthService } from './core/services/auth.service';
     HttpClientModule,
     AppRoutingModule,
     CoreModule,
+    AlertComponent,
   ],
   providers: [
     {

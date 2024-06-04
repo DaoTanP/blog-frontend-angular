@@ -10,7 +10,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UserService {
   private userSubject: BehaviorSubject<User | null>;
-  public user: Observable<User | null>;
+  public user$: Observable<User | null>;
+
+  get user() {
+    return this.userSubject.value;
+  }
 
   constructor(
     private apiService: ApiService,
@@ -18,7 +22,12 @@ export class UserService {
   ) {
     this.userSubject = new BehaviorSubject<User | null>(null);
     // this.user = this.userSubject.asObservable();
-    this.user = apiService.getProfile();
+    this.user$ = apiService.getProfile().pipe(
+      map((user) => {
+        this.userSubject.next(user);
+        return user;
+      })
+    );
 
     // apiService.getProfile().subscribe({
     //   next: (res: User) => {

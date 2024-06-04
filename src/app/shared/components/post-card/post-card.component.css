@@ -1,7 +1,16 @@
 .card-text-preview * {
     display: inline;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
 article.card:hover {
     background-color: rgba(var(--bs-secondary-rgb), .1);
+}
+
+article.card [routerLink]:not(.stretched-link),
+article.card [href]:not(.stretched-link),
+article.card button:not(.stretched-link) {
+    position: relative;
+    z-index: 2;
 }

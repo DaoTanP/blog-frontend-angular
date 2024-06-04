@@ -4,6 +4,7 @@ import Editor from '@/shared/ckeditor5-41.3.1/build/ckeditor';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Subscription } from 'rxjs';
 import { ApiService } from '@/core/services/api.service';
+import { CreatePostDTO } from '@/core/models/dto/create-post.dto';
 
 @Component({
   selector: 'app-create-post',
@@ -15,7 +16,7 @@ export class CreatePostComponent {
 
   protected titleFormControl: FormControl = new FormControl(null, [
     Validators.required,
-    Validators.maxLength(300),
+    Validators.maxLength(150),
   ]);
 
   protected bodyFormControl: FormControl = new FormControl(
@@ -55,7 +56,13 @@ export class CreatePostComponent {
   }
 
   createPost(): void {
-    this.apiService.createPost(this.postForm.value).subscribe();
+    const post: CreatePostDTO = this.postForm.value as CreatePostDTO;
+    post.title = post.title.trim();
+    post.body = post.body.trim();
+    this.apiService.createPost(post).subscribe({
+      next: (res) => {},
+      error: (err) => {},
+    });
   }
 
   getTag(index: number): FormControl {
@@ -87,5 +94,11 @@ export class CreatePostComponent {
     const tag: FormControl = this.tagsFormArray.at(index) as FormControl;
     if (tag.value && tag.value !== '')
       tag.setValue(tag.value.replace(/\s/g, '_'));
+  }
+
+  toLowercase(event: Event, index: number): void {
+    event.preventDefault();
+    const tag: FormControl = this.tagsFormArray.at(index) as FormControl;
+    if (tag.value && tag.value !== '') tag.setValue(tag.value.toLowerCase());
   }
 }

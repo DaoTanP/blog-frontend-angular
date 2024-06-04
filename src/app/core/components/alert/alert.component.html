@@ -1,0 +1,9 @@
+<div *ngIf="alertQueue.length !== 0" class="position-static z-3 w-100 h-100">
+    <ng-container *ngFor="let alert of alertQueue; index as i">
+        <div class="alert alert-dismissible {{alert.cssClass}} rounded-0 border-0 mb-0" role="alert">
+            {{alert.message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                (click)="removeAlert(i)"></button>
+        </div>
+    </ng-container>
+</div>

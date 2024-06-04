@@ -1,0 +1,35 @@
+article,
+main {
+    > :is(h1, h2, h3, h4, h5, h6) {
+        font-weight: 600;
+        margin-top: 3rem !important;
+        margin-bottom: 1rem !important;
+        clear: none !important;
+    }
+
+    >blockquote {
+        >h5::before {
+            content: '';
+        }
+    }
+}
+
+dd {
+    &::before {
+        content: '-';
+        position: absolute;
+        left: -1em;
+    }
+
+    position: relative;
+    margin-left: 1em;
+}
+
+li:not(:first-child) {
+    margin-top: 0.5rem;
+}
+
+article::ng-deep img {
+    width: 100%;
+    height: auto;
+}

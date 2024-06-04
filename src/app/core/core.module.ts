@@ -10,6 +10,7 @@ import { LogoComponent } from '@/shared/components/logo/logo.component';
 import { FormsModule } from '@angular/forms';
 import { TwoColumnNavLayoutComponent } from './layouts/two-column-nav-layout/two-column-nav-layout.component';
 import { ThreeColumnNavLayoutComponent } from './layouts/three-column-nav-layout/three-column-nav-layout.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [

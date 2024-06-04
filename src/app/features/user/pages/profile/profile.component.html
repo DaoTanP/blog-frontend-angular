@@ -9,7 +9,7 @@
 
                 <div class="d-flex mx-3">
                     <div class="avatar rounded-circle overflow-hidden me-3 bg-body-secondary p-1">
-                        <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user|async)?.username}}"
+                        <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user$|async)?.username}}"
                             alt="avatar" class="rounded-circle object-fit-cover bg-info" />
 
                         <!-- <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user|async)?.username}}" alt="avatar"
@@ -18,12 +18,23 @@
                     </div>
 
                     <div class="d-flex flex-column">
-                        <p class="h3">{{(user|async)?.displayName}}</p>
-                        <div class="text-muted">{{(user|async)?.username}}</div>
+                        <p class="h3">{{(user$|async)?.displayName}}</p>
+                        <div class="text-muted">{{(user$|async)?.username}}</div>
                     </div>
 
-                    <div class="d-flex align-items-center ms-auto">
-                        <button class="btn btn-primary rounded-pill">Follow</button>
+                    <div class="d-flex align-items-center ms-auto" *ngIf="!isLoggedInUserProfile">
+                        <button [class.d-none]="isFollowing" class="btn btn-primary rounded-pill fw-semibold"
+                            (click)="follow()" [disabled]="isWaitingForFollowEvent">
+                            Follow
+                            <div class="spinner-border ms-1" [class.d-none]="!isWaitingForFollowEvent"
+                                style="width: 1em; height: 1em;"></div>
+                        </button>
+                        <button [class.d-none]="!isFollowing" class="btn btn-secondary rounded-pill fw-semibold"
+                            (click)="unfollow()" [disabled]="isWaitingForFollowEvent">
+                            Following
+                            <div class="spinner-border ms-1" [class.d-none]="!isWaitingForFollowEvent"
+                                style="width: 1em; height: 1em;"></div>
+                        </button>
                     </div>
                 </div>
 
@@ -43,15 +54,11 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane py-3 active" id="tab-1">
-                        {{(user|async|json)}}
+                        {{(user$|async)?.createdAt | date:"dd-MM-yyyy"}}
                     </div>
                     <div class="tab-pane py-3" id="tab-2">
                         <div class="d-flex flex-column">
-                            <app-post-card></app-post-card>
-                            <div class="border-top"></div>
-                            <app-post-card></app-post-card>
-                            <div class="border-top"></div>
-                            <app-post-card></app-post-card>
+                            <app-post-sroll-pagination></app-post-sroll-pagination>
                         </div>
                     </div>
                     <div class="tab-pane py-3" id="tab-3">
@@ -63,63 +70,93 @@
         <div
             class="col-lg-4 col-xxl-3 d-none d-lg-block border-start overflow-y-auto overflow-x-hidden sticky-top z-1 user-select-none styled-scrollbars h-screen-without-header top-without-header">
             <aside>
-                <div class="p-3 rounded d-none d-md-block">
-                    <h6 class="pb-3 mb-3 text-uppercase text-secondary-emphasis">Top bloggers</h6>
-                    <div class="list-group list-group-flush">
-                        <a routerLink="/user"
-                            class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
-                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
-                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                                preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#007bff"></rect>
-                            </svg>
-                            <div class="small lh-sm">
-                                <strong class="d-block text-gray-dark">&#64;username</strong>
-                                <span class="d-block lh-sm">12 posts</span>
-                                <span class="d-block lh-sm">120 comments</span>
+                <div class="my-2 p-3 rounded bg-body-tertiary" *ngIf="user$ | async as user">
+                    <div class="d-flex justify-content-between align-items-center text-muted mb-4">
+                        <div class="d-flex gap-2 align-items-center">
+                            <img src="https://api.dicebear.com/8.x/avataaars/svg?seed={{user.username}}" alt=""
+                                routerLink="/user/{{user.username}}"
+                                class="img-fluid rounded-circle w-100 h-100 bg-secondary-subtle shadow-sm"
+                                style="aspect-ratio: 1/1; max-height: 2.5rem; max-width: 2.5rem; padding: 1px;">
+                            <div
+                                class="d-flex align-items-start align-items-sm-center gap-0 gap-sm-2 flex-column flex-sm-row">
+                                <a routerLink="/user/{{user.username}}"
+                                    class="fw-semibold text-decoration-none">{{user.username}}</a>
                             </div>
-                        </a>
-                        <a routerLink="/user"
-                            class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
-                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
-                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                                preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#e83e8c"></rect>
-                            </svg>
-                            <div class="small lh-sm">
-                                <strong class="d-block text-gray-dark">&#64;username</strong>
-                                <span class="d-block lh-sm">12 posts</span>
-                                <span class="d-block lh-sm">120 comments</span>
-                            </div>
-                        </a>
-                        <a routerLink="/user"
-                            class="d-flex align-items-center text-body-secondary list-group-item list-group-item-action rounded-2 p-2 border-bottom-0">
-                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48" height="48"
-                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                                preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#6f42c1"></rect>
-                            </svg>
-                            <div class="small lh-sm">
-                                <strong class="d-block text-gray-dark">&#64;username</strong>
-                                <span class="d-block lh-sm">12 posts</span>
-                                <span class="d-block lh-sm">120 comments</span>
-                            </div>
-                        </a>
+                        </div>
+                        <div class="d-flex gap-2" *ngIf="!isLoggedInUserProfile">
+                            <button [class.d-none]="isFollowing"
+                                class="btn btn-primary btn-sm rounded-pill px-3 py-1 d-block fw-semibold"
+                                (click)="follow()" [disabled]="isWaitingForFollowEvent">
+                                Follow
+                                <div class="spinner-border ms-1" [class.d-none]="!isWaitingForFollowEvent"
+                                    style="width: 1em; height: 1em;"></div>
+                            </button>
+                            <button [class.d-none]="!isFollowing"
+                                class="btn btn-secondary btn-sm rounded-pill px-3 py-1 d-block fw-semibold"
+                                (click)="unfollow()" [disabled]="isWaitingForFollowEvent">
+                                Following
+                                <div class="spinner-border ms-1" [class.d-none]="!isWaitingForFollowEvent"
+                                    style="width: 1em; height: 1em;"></div>
+                            </button>
+                        </div>
                     </div>
+                    <div class="mb-4">
+                        <div class="d-flex flex-column flex-grow-1 mb-4" style="flex-basis: 0;">
+                            <h6 class="mb-1 text-uppercase text-muted small">Joined on</h6>
+                            <span>{{user.createdAt | date}}</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="d-flex flex-column flex-grow-1" style="flex-basis: 0;">
+                                <h6 class="mb-1 text-uppercase small text-muted">Post</h6>
+                                <span>{{user.posts.length}}</span>
+                            </div>
+                            <div class="d-flex flex-column flex-grow-1" style="flex-basis: 0;">
+                                <h6 class="mb-1 text-uppercase small text-muted">Comment</h6>
+                                <span>{{user.posts.length}}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex flex-column flex-grow-1" style="flex-basis: 0;">
+                                <h6 class="mb-1 text-uppercase small text-muted">Follower</h6>
+                                <span>{{user.followers.length}}</span>
+                            </div>
+                            <div class="d-flex flex-column flex-grow-1" style="flex-basis: 0;">
+                                <h6 class="mb-1 text-uppercase small text-muted">Following</h6>
+                                <span>{{user.following.length}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="isLoggedInUserProfile">
+                        <div class="border-top"></div>
+                        <div class="d-flex flex-column flex-grow-1 my-4" style="flex-basis: 0;">
+                            <h6 class="text-uppercase text-muted small mb-3">Settings</h6>
+                            <div class="d-flex flex-column w-100 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-person-lines-fill me-3 fs-3"></i>
+                                    <div class="d-flex flex-column">
+                                        <span>Profile</span>
+                                        <span class="text-muted small">Update your information</span>
+                                    </div>
+                                    <button class="btn btn-secondary fw-semibold rounded-pill ms-auto p-2">Edit
+                                        Profile</button>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-person-bounding-box me-3 fs-3"></i>
+                                    <div class="d-flex flex-column">
+                                        <span>Avatar</span>
+                                        <span class="text-muted small">Customize and style</span>
+                                    </div>
+                                    <button class="btn btn-secondary fw-semibold rounded-pill ms-auto p-2">Edit
+                                        Avatar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
-                <div class="p-3 rounded d-none d-md-block">
-                    <h6 class="pb-3 mb-3 text-uppercase text-secondary-emphasis">Bottom bloggers</h6>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat tempore impedit molestias ex
-                    ab
-                    qui
-                    recusandae doloribus commodi quam reprehenderit ipsum, voluptates, libero quisquam, voluptatibus
-                    iusto
-                    ratione ducimus corrupti laboriosam nemo facere? Non cum doloremque quis quos blanditiis itaque
-                    nostrum
-                    veniam corporis qui nulla possimus architecto laudantium.
+                <div class="p-3 rounded">
+
                 </div>
             </aside>
         </div>

@@ -2,8 +2,8 @@
     [ngClass]="{'shadow bg-body-tertiary': isScrolled || (NavToggler.checked && !isScrolled)}" style="z-index: 9999;">
     <div class="container-fluid d-flex">
         <button class="navbar-toggler d-flex d-xl-none p-1 me-2 rounded-circle fw-bolder border-0"
-            (click)="NavToggler.checked = !NavToggler.checked" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-            aria-controls="bdNavbar">
+            [class.d-none]="!sideBarExists" (click)="NavToggler.checked = !NavToggler.checked"
+            data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="bdNavbar">
             <input type="checkbox" class="visually-hidden" #NavToggler>
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,8 +67,13 @@
             <li class="nav-item col-lg-auto d-flex align-items-center dropdown">
                 <button class="btn btn-ghost-secondary rounded-circle p-2 dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                    <i class="fa-solid fa-ellipsis fs-5 d-flex align-items-center justify-content-center"
+                    <i [ngClass]="{'d-none': (isLoggedIn | async)}"
+                        class="fa-solid fa-ellipsis fs-5 d-flex align-items-center justify-content-center"
                         style="width: 1em; height: 1em;"></i>
+                    <img [ngClass]="{'d-none': !(isLoggedIn | async)}"
+                        src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user | async)?.username}}" alt=""
+                        class="img-fluid rounded-circle w-100 h-100 bg-secondary-subtle shadow-sm"
+                        style="aspect-ratio: 1/1; max-height: 2.5rem; max-width: 2.5rem; padding: 1px;">
                 </button>
                 <div class="dropdown-menu dropdown-menu-end mt-3 overflow-hidden overflow-y-auto thin-scrollbars fs-5"
                     style="max-height: 50dvh; min-width: 16rem;">
@@ -84,7 +89,10 @@
                     <ng-template #loggedInUserDropdown>
                         <a class="dropdown-item py-2 d-flex align-items-center"
                             routerLink="/user/{{(user | async)?.username}}">
-                            <i style="width: 1em;" class="fa-solid fa-user me-3 text-start"></i>
+                            <img [ngClass]="{'d-none': !(isLoggedIn | async)}"
+                                src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user | async)?.username}}"
+                                alt="" class="img-fluid rounded-circle w-100 h-100 bg-secondary-subtle shadow-sm me-1"
+                                style="aspect-ratio: 1/1; max-height: 2rem; max-width: 2rem; padding: 1px;">
                             {{(user | async)?.username}}
                         </a>
                         <button class="dropdown-item py-2 d-flex align-items-center" (click)="logout()">

@@ -10,4 +10,6 @@ export interface User {
   bannerImage: string;
   createdAt: string;
   posts: Post[];
+  followers: User[];
+  following: User[];
 }

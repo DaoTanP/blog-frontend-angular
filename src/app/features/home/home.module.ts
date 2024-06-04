@@ -4,9 +4,15 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { PostCardComponent } from '@/shared/components/post-card/post-card.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { PostSrollPaginationComponent } from '@/shared/components/post-sroll-pagination/post-sroll-pagination.component';
 
 @NgModule({
   declarations: [FeedComponent, LandingComponent],
-  imports: [CommonModule, HomeRoutingModule, PostCardComponent],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    PostCardComponent,
+    PostSrollPaginationComponent,
+  ],
 })
 export class HomeModule {}

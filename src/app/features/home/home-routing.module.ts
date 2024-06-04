@@ -4,12 +4,14 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { TwoColumnNavLayoutComponent } from '@/core/layouts/two-column-nav-layout/two-column-nav-layout.component';
 import { HeaderLayoutComponent } from '@/core/layouts/header-layout/header-layout.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { AuthGuard } from '@/core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: TwoColumnNavLayoutComponent,
     children: [{ path: '', component: FeedComponent }],
+    canActivate: [AuthGuard],
   },
   {
     path: 'landing',

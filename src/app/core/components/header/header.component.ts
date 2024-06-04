@@ -12,6 +12,7 @@ import { User } from '@/core/models/user.model';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  protected sideBarExists: boolean = false;
   protected appName: string = APP_INFO.appName;
   protected switchThemeFunction: any = undefined;
   protected setThemeFunction: any = undefined;
@@ -38,7 +39,11 @@ export class HeaderComponent {
     this.isDark = this.getTheme();
 
     this.isLoggedIn = userService.isLoggedIn;
-    this.user = userService.user;
+    this.user = userService.user$;
+  }
+
+  ngAfterContentInit() {
+    this.sideBarExists = document.getElementById('sidebar') !== null;
   }
 
   @HostListener('window:scroll')

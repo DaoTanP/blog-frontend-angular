@@ -67,7 +67,8 @@
         </div>
 
         <div class="col d-flex justify-content-center h-100 overflow-y-auto">
-            <div id="form-container" class="card border-0 w-100 my-auto" style="max-width: 416px">
+            <div id="form-container" class="card border-0 w-100 my-auto animate__animated animate__fadeIn"
+                style="max-width: 416px">
                 <div class="card-body p-md-0">
                     <h2 class="card-title fw-bold mb-4">Log In</h2>
 
@@ -107,7 +108,10 @@
                                 <div *ngIf="usernameOrEmailFormControl.errors?.['minlength']">Username or email must
                                     have at
                                     least {{
-                                    usernameOrEmailFormControl.errors?.['minlength'].requiredLength }} characters.</div>
+                                    usernameOrEmailFormControl.errors?.['minlength'].requiredLength }} characters</div>
+                                <div *ngIf="usernameOrEmailFormControl.errors?.['maxlength']">Username or email can not
+                                    exceed {{
+                                    usernameOrEmailFormControl.errors?.['maxlength'].requiredLength }} characters</div>
                             </small>
                         </div>
                         <div class="mb-4 w-100">
@@ -120,13 +124,21 @@
                                 class="text-danger mt-1 d-block">
                                 <div *ngIf="passwordFormControl.errors?.['required']">Password can not be empty</div>
                                 <div *ngIf="passwordFormControl.errors?.['minlength']">Password must have at least {{
-                                    passwordFormControl.errors?.['minlength'].requiredLength }} characters.</div>
+                                    passwordFormControl.errors?.['minlength'].requiredLength }} characters</div>
                             </small>
                         </div>
                     </form>
                     <div class="mb-3"><a class="text-decoration-none">Forgot password?</a></div>
-                    <button type="submit" class="btn btn-primary d-block w-100 rounded-pill p-3 fw-semibold"
-                        form="signInFormId" [disabled]="signInForm.invalid">Log In</button>
+                    <button type="submit"
+                        class="btn btn-primary d-block w-100 rounded-pill p-3 fw-semibold text-capitalize"
+                        form="signInFormId" [disabled]="signInForm.invalid || loading">
+                        <span [class.d-none]="loading">Log In</span>
+                        <span [class.d-none]="!loading">Logging In
+                            <div class="spinner-border text-secondary" style="width: 1em; height: 1em;" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </span>
+                    </button>
 
                     <p class="text-center m-0 mt-4">
                         Don't have an account?

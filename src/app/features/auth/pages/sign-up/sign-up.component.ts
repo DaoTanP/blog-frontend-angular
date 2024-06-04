@@ -10,6 +10,7 @@ import { SignUpDTO } from '@/core/models/dto/sign-up.dto';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@/core/services/auth.service';
 import { TokenDTO } from '@/core/models/dto/token.dto';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +18,7 @@ import { TokenDTO } from '@/core/models/dto/token.dto';
   styleUrl: './sign-up.component.css',
 })
 export class SignUpComponent {
-  protected waiting: boolean = false;
+  protected loading: boolean = false;
 
   protected emailFormControl: FormControl = new FormControl(
     null,
@@ -46,16 +47,24 @@ export class SignUpComponent {
   });
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private apiService: ApiService,
     private authService: AuthService
   ) {}
 
   public signUp(): void {
+    this.loading = true;
+
     const signUpDTO: SignUpDTO = this.signUpForm.value as SignUpDTO;
+
     this.apiService.signup(signUpDTO).subscribe({
       next: (res: TokenDTO) => {
-        console.log(res);
         this.authService.setToken(res);
+
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.router.navigateByUrl(returnUrl);
+        this.loading = false;
       },
       error: (err: HttpErrorResponse) => {
         switch (err.status) {
@@ -64,6 +73,7 @@ export class SignUpComponent {
           default:
             break;
         }
+        this.loading = false;
       },
     });
   }

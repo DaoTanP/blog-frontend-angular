@@ -22,12 +22,12 @@
     <div class="container">
         <h3>Section Header</h3>
         <div class="d-flex flex-wrap justify-content-between">
+            <!-- <app-post-card style="max-width: 32%;"></app-post-card>
             <app-post-card style="max-width: 32%;"></app-post-card>
             <app-post-card style="max-width: 32%;"></app-post-card>
             <app-post-card style="max-width: 32%;"></app-post-card>
             <app-post-card style="max-width: 32%;"></app-post-card>
-            <app-post-card style="max-width: 32%;"></app-post-card>
-            <app-post-card style="max-width: 32%;"></app-post-card>
+            <app-post-card style="max-width: 32%;"></app-post-card> -->
         </div>
     </div>
 </section>
@@ -36,17 +36,14 @@
         <div class="row">
             <main class="col m-lg-0 m-0 mx-sm-5 py-5">
                 <div class="d-flex flex-column">
-                    <app-post-card></app-post-card>
-                    <app-post-card></app-post-card>
-                    <app-post-card></app-post-card>
-                    <app-post-card></app-post-card>
-                    <app-post-card></app-post-card>
-                    <app-post-card></app-post-card>
+                    <ng-container *ngFor="let post of (posts | async)">
+                        <app-post-card [post]="post" class="mb-3"></app-post-card>
+                    </ng-container>
                 </div>
             </main>
             <aside
                 class="col-lg-4 col-xxl-3 d-none d-lg-block overflow-y-auto overflow-x-hidden sticky-top z-1 user-select-none styled-scrollbars h-screen-without-header top-without-header">
-                <div class="p-3 rounded d-none d-md-block pt-5">
+                <div class="p-3 rounded pt-5">
                     <h6 class="pb-3 mb-3 text-uppercase text-secondary-emphasis">Top bloggers</h6>
                     <div class="list-group list-group-flush">
                         <a routerLink="/user"
