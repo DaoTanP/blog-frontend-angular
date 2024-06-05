@@ -54,7 +54,9 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane py-3 active" id="tab-1">
-                        {{(user$|async)?.createdAt | date:"dd-MM-yyyy"}}
+                        <div *ngIf="(user$|async)?.biography">{{(user$|async)?.biography}}</div>
+                        <div *ngIf="!(user$|async)?.biography">{{(user$|async)?.displayName}} hasn't updated their
+                            biography yet</div>
                     </div>
                     <div class="tab-pane py-3" id="tab-2">
                         <div class="d-flex flex-column">
@@ -62,7 +64,27 @@
                         </div>
                     </div>
                     <div class="tab-pane py-3" id="tab-3">
-                        Lorem ipsum dolor sit amet co
+                        <ng-container *ngIf="comments$ | async as comments; else loading">
+                            <div *ngFor="let comment of comments">
+                                <a class="d-flex flex-column mb-4 text-decoration-none px-3"
+                                    routerLink="/post/{{comment.post.id}}">
+                                    <p class="mb-2 fw-medium text-ellipsis line-clamp-2">{{comment.body}}</p>
+                                    <span class="text-muted small mb-1 text-ellipsis">commented on
+                                        <span class="fw-semibold">{{comment.post.title}}</span></span>
+                                    <span class="text-muted small">{{comment.createdAt | date}}</span>
+                                </a>
+                            </div>
+
+                            <div class="" *ngIf="comments.length==0">
+                                {{(user$|async)?.displayName}} hasn't commented on any post
+                            </div>
+                        </ng-container>
+
+                        <ng-template #loading>
+                            <div class="d-flex justify-content-center align-items-center py-5">
+                                <div class="spinner-border"></div>
+                            </div>
+                        </ng-template>
                     </div>
                 </div>
             </main>
@@ -80,7 +102,7 @@
                             <div
                                 class="d-flex align-items-start align-items-sm-center gap-0 gap-sm-2 flex-column flex-sm-row">
                                 <a routerLink="/user/{{user.username}}"
-                                    class="fw-semibold text-decoration-none">{{user.username}}</a>
+                                    class="fw-semibold text-decoration-none">{{user.displayName}}</a>
                             </div>
                         </div>
                         <div class="d-flex gap-2" *ngIf="!isLoggedInUserProfile">
@@ -112,7 +134,7 @@
                             </div>
                             <div class="d-flex flex-column flex-grow-1" style="flex-basis: 0;">
                                 <h6 class="mb-1 text-uppercase small text-muted">Comment</h6>
-                                <span>{{user.posts.length}}</span>
+                                <span>{{(comments$ | async)?.length || 0}}</span>
                             </div>
                         </div>
                         <div class="d-flex align-items-center">

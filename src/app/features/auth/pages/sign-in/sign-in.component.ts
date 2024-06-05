@@ -51,7 +51,7 @@ export class SignInComponent {
         this.authService.setToken(res);
 
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.router.navigateByUrl(returnUrl);
+        this.router.navigate([returnUrl]);
         this.loading = false;
       },
       error: (err: HttpErrorResponse) => {

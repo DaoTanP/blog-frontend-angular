@@ -93,7 +93,7 @@
                                 src="https://api.dicebear.com/8.x/avataaars/svg?seed={{(user | async)?.username}}"
                                 alt="" class="img-fluid rounded-circle w-100 h-100 bg-secondary-subtle shadow-sm me-1"
                                 style="aspect-ratio: 1/1; max-height: 2rem; max-width: 2rem; padding: 1px;">
-                            {{(user | async)?.username}}
+                            {{(user | async)?.displayName}}
                         </a>
                         <button class="dropdown-item py-2 d-flex align-items-center" (click)="logout()">
                             <i style="width: 1em;" class="fa-solid fa-sign-out me-3 text-start"></i>

@@ -1,3 +1,4 @@
+import { Comment } from '@/core/models/comment.model';
 import { User } from '@/core/models/user.model';
 import { ApiService } from '@/core/services/api.service';
 import { UserService } from '@/core/services/user.service';
@@ -15,6 +16,8 @@ export class ProfileComponent {
   isLoggedInUserProfile!: boolean;
   isFollowing!: boolean;
   isWaitingForFollowEvent: boolean = false;
+
+  comments$!: Observable<Comment[]>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,6 +38,7 @@ export class ProfileComponent {
             user.following.findIndex((u: User) => u.username === username) >
               -1) ||
           false;
+        this.comments$ = this.apiService.getAllCommentsByUsername(username);
 
         if (!user || user.username !== username)
           return this.apiService.getProfile(username);

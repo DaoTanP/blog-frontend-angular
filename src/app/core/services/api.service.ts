@@ -9,6 +9,8 @@ import { User } from '@/core/models/user.model';
 import { UpdateUserDTO } from '@/core/models/dto/update-user.dto';
 import { CreatePostDTO } from '@/core/models/dto/create-post.dto';
 import { Post } from '@/core/models/post.model';
+import { Comment } from '@/core/models/comment.model';
+import { Tag } from '@/core/models/tag.model';
 
 @Injectable({
   providedIn: 'root',
@@ -140,120 +142,31 @@ export class ApiService {
     );
   }
 
-  // public deleteUser(user: User): Observable<any> {
-  //   return this.httpClient.post(this.USER_API_URL + '/delete', user, {
-  //     observe: 'response',
-  //     responseType: 'text',
-  //   });
-  // }
+  public getAllComments(postId: string): Observable<Comment[]> {
+    return this.httpClient.get<Comment[]>(
+      this.API_URL + this.API_PATH.post + `/${postId}` + this.API_PATH.comment
+    );
+  }
 
-  // public uploadAvatar({ username, imageBytes }: any): Observable<any> {
-  //   return this.httpClient.post(this.USER_API_URL + '/uploadAvatar', {
-  //     username,
-  //     imageBytes,
-  //   });
-  // }
+  public getAllCommentsByUsername(username: string): Observable<Comment[]> {
+    return this.httpClient.get<Comment[]>(
+      this.API_URL + this.API_PATH.user + this.API_PATH.comment + `/${username}`
+    );
+  }
 
-  // public changeUserPassword({
-  //   username,
-  //   oldPassword,
-  //   newPassword,
-  // }: any): Observable<any> {
-  //   return this.httpClient.post(
-  //     this.USER_API_URL + '/changePassword',
-  //     { username, oldPassword, newPassword },
-  //     { observe: 'response', responseType: 'text' }
-  //   );
-  // }
+  public submitComment(
+    postId: string,
+    formData: { body: string }
+  ): Observable<any> {
+    return this.httpClient.post<any>(
+      this.API_URL + this.API_PATH.post + `/${postId}` + this.API_PATH.comment,
+      formData
+    );
+  }
 
-  // public linkLibraryCard({
-  //   CardNumber,
-  //   Password,
-  //   UserId,
-  // }: any): Observable<any> {
-  //   return this.httpClient.post(this.USER_API_URL + '/libraryCard', {
-  //     CardNumber,
-  //     Password,
-  //     UserId,
-  //   });
-  // }
-
-  // public getBooks(id: string = ''): Observable<any> {
-  //   if (id != '') return this.httpClient.get(this.BOOK_API_URL + '/' + id);
-
-  //   return this.httpClient.get(this.BOOK_API_URL);
-  // }
-
-  // public getTopBorrow(): Observable<any> {
-  //   return this.httpClient.get(this.BOOK_API_URL + '/topBorrow');
-  // }
-
-  // public GetRandomRecommendation(): Observable<any> {
-  //   return this.httpClient.get(this.BOOK_API_URL + '/randomRecommendation');
-  // }
-
-  // public getCategories(): Observable<any> {
-  //   return this.httpClient.get(this.BOOK_API_URL + '/category');
-  // }
-
-  // public getAuthors(): Observable<any> {
-  //   return this.httpClient.get(this.BOOK_API_URL + '/author');
-  // }
-
-  // public getPublishers(): Observable<any> {
-  //   return this.httpClient.get(this.BOOK_API_URL + '/publisher');
-  // }
-
-  // public searchBooks(searchModel: SearchModel): Observable<any> {
-  //   for (let i in searchModel) {
-  //     if (searchModel[i] === null) searchModel[i] = '';
-  //   }
-
-  //   return this.httpClient.get(this.BOOK_API_URL + '/search', {
-  //     params: searchModel,
-  //   });
-  // }
-
-  // public addFavorite({ bookId, userId }: any): Observable<any> {
-  //   const id = null;
-  //   return this.httpClient.post(this.USER_API_URL + '/addFavorite', {
-  //     id,
-  //     bookId,
-  //     userId,
-  //   });
-  // }
-  // public removeFavorite({ bookId, userId }: any): Observable<any> {
-  //   const id = null;
-  //   return this.httpClient.post(this.USER_API_URL + '/removeFavorite', {
-  //     id,
-  //     bookId,
-  //     userId,
-  //   });
-  // }
-  // public isFavorite({ bookId, userId }: any): Observable<any> {
-  //   const id = null;
-  //   return this.httpClient.post(this.USER_API_URL + '/isFavorite', {
-  //     id,
-  //     bookId,
-  //     userId,
-  //   });
-  // }
-  // public getFavorite(id: string): Observable<any> {
-  //   return this.httpClient.get(this.USER_API_URL + `/${id}/favorite`);
-  // }
-
-  // public borrow({
-  //   cardNumber,
-  //   bookId,
-  //   borrowDate,
-  //   returnDate,
-  // }: any): Observable<any> {
-  //   return this.httpClient.post(this.BOOK_API_URL + '/borrow', {
-  //     id: null,
-  //     cardNumber,
-  //     bookId,
-  //     borrowDate,
-  //     returnDate,
-  //   });
-  // }
+  public getAllTags(): Observable<Tag[]> {
+    return this.httpClient.get<Tag[]>(
+      this.API_URL + this.API_PATH.post + `/tags`
+    );
+  }
 }

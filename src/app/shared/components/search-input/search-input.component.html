@@ -4,36 +4,50 @@
         <li>
             <div style="line-height: 0.6;" class="border-bottom text-secondary">&nbsp;</div>
         </li>
-        <li>
-            <div class="dropdown-header pb-2 pt-3">
-                <i class="fa-solid fa-arrow-trend-up me-2"></i>
-                <span class="h6 text-uppercase">Trending Today</span>
-            </div>
-        </li>
-        <li *ngFor="let item of (searchResults$ | async)">
-            <a class="dropdown-item p-3" routerLink="/post/{{item.id}}">
-                <div class="row justify-content-between flex-nowrap">
-                    <div class="col">
-                        <h6 class="m-0 text-ellipsis">{{item.title}}</h6>
-                        <p class="small mb-2 text-ellipsis">{{item.body}}</p>
-                        <p class="small mb-0">&#64;{{item.user.username}}</p>
-                    </div>
-                    <!-- <div class="col d-flex align-items-center">
-                        <svg class="bd-placeholder-img flex-shrink-0 rounded d-block ms-auto" width="96px" height="72px"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#007bff"></rect>
-                        </svg>
-                    </div> -->
+        <ng-container *ngIf="searchResults$ | async as searchResults; else loading">
+            <!-- <li>
+                <div class="dropdown-header pb-2 pt-3">
+                    <i class="fa-solid fa-arrow-trend-up me-2"></i>
+                    <span class="h6 text-uppercase">Trending Today</span>
                 </div>
-            </a>
-        </li>
-        <li><a class="dropdown-item p-3" href="#">Action two</a></li>
-        <li><a class="dropdown-item p-3" href="#">Action three</a></li>
+            </li> -->
+            <li *ngFor="let item of searchResults">
+                <a class="dropdown-item p-3" routerLink="/post/{{item.id}}">
+                    <div class="row justify-content-between flex-nowrap">
+                        <div class="col">
+                            <h6 class="m-0 text-ellipsis">{{item.title}}</h6>
+                            <p class="small mb-2 text-ellipsis">{{item.body | htmlToPlainText}}</p>
+                            <p class="small mb-0">by {{item.user.displayName}}</p>
+                        </div>
+                        <!-- <div class="col d-flex align-items-center">
+                            <svg class="bd-placeholder-img flex-shrink-0 rounded d-block ms-auto" width="96px" height="72px"
+                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#007bff"></rect>
+                            </svg>
+                        </div> -->
+                    </div>
+                </a>
+            </li>
+            <div *ngIf="searchResults.length === 0">
+                <div class="d-flex flex-column justify-content-center align-items-center gap-3 py-5">
+                    <i class="fa-regular fa-face-dizzy display-1"></i>
+                    <span class="h3">No posts found</span>
+                    <span>There are no posts that match your current filters. Try another keyword to get better
+                        results.</span>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #loading>
+            <div class="d-flex justify-content-center align-items-center py-5">
+                <div class="spinner-border"></div>
+            </div>
+        </ng-template>
     </ul>
     <!-- <div class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"> -->
-    <div class="input-group rounded-pill bg-body-secondary px-1 py-1" (click)="searchPost(searchInput.value)">
+    <div class="input-group rounded-pill bg-body-secondary px-1 py-1" (input)="searchPost(searchInput.value)"
+        (click)="isDropDownOpened = true">
         <button class="btn border-0" type="button" id="quick-search" tabindex="-1">
             <i class="bi bi-search"></i>
         </button>
