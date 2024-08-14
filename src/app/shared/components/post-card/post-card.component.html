@@ -13,11 +13,19 @@
                     <div>{{post.createdAt | dateAgo}}</div>
                 </div>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 dropdown-center">
                 <!-- <button class="btn btn-primary btn-sm rounded-pill px-3 py-1 d-block fw-semibold">Follow</button> -->
-                <button class="btn btn-outline-secondary btn-sm rounded-pill p-1">
+                <button class="btn btn-outline-secondary btn-sm rounded-pill p-1 dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis d-flex align-items-center justify-content-center"
                         style="width: 1.5rem; height: 1.5rem;"></i></button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <button class="dropdown-item text-danger" (click)="deletePost()">
+                            <i class="fa fa-trash-can me-2"></i> Delete post
+                        </button>
+                    </li>
+                </ul>
             </div>
         </div>
 

@@ -5,6 +5,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Subscription } from 'rxjs';
 import { ApiService } from '@/core/services/api.service';
 import { CreatePostDTO } from '@/core/models/dto/create-post.dto';
+import { AlertService } from '@/core/services/alert.service';
+import { AlertType } from '@/shared/constants/alert-type.enum';
 
 @Component({
   selector: 'app-create-post',
@@ -13,6 +15,7 @@ import { CreatePostDTO } from '@/core/models/dto/create-post.dto';
 })
 export class CreatePostComponent {
   public editor = Editor.Editor;
+  isLoading = false;
 
   protected titleFormControl: FormControl = new FormControl(null, [
     Validators.required,
@@ -34,7 +37,10 @@ export class CreatePostComponent {
     tags: this.tagsFormArray,
   });
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private alertService: AlertService
+  ) {}
 
   ngAfterViewInit() {
     this.subscription = this.tagInputs.changes.subscribe((res) => {
@@ -56,12 +62,18 @@ export class CreatePostComponent {
   }
 
   createPost(): void {
+    this.isLoading = true;
     const post: CreatePostDTO = this.postForm.value as CreatePostDTO;
     post.title = post.title.trim();
     post.body = post.body.trim();
     this.apiService.createPost(post).subscribe({
-      next: (res) => {},
+      next: (res) => {
+        this.alertService.push('Post created successfully', AlertType.SUCCESS);
+      },
       error: (err) => {},
+      complete: () => {
+        this.isLoading = false;
+      },
     });
   }
 

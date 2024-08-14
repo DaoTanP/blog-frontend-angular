@@ -142,6 +142,12 @@ export class ApiService {
     );
   }
 
+  public deletePost(postId: string): Observable<boolean> {
+    return this.httpClient.delete<boolean>(
+      this.API_URL + this.API_PATH.post + `/${postId}`
+    );
+  }
+
   public getAllComments(postId: string): Observable<Comment[]> {
     return this.httpClient.get<Comment[]>(
       this.API_URL + this.API_PATH.post + `/${postId}` + this.API_PATH.comment
